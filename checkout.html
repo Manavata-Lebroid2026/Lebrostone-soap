@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Checkout</title>
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-N2XQ6MW2"></script>
+<script>  window.dataLayer = window.dataLayer || [];  function gtag(){dataLayer.push(arguments);}  gtag('js', new Date());</script>
+ <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18162645937"></script>
+    <script>  window.dataLayer = window.dataLayer || [];  function gtag(){dataLayer.push(arguments);}  gtag('js', new Date());  gtag('config', 'AW-18162645937');</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- JQUERY -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body class="bg-[#f3f4f6] min-h-screen py-6 md:py-10 px-3 md:px-6">
+
+<!-- HEADING -->
+<h1 class="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-10">
+  Checkout
+</h1>
+
+<!-- MAIN WRAPPER -->
+<div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-8">
+
+  <!-- LEFT SIDE -->
+  <div class="bg-white rounded-2xl shadow-sm p-4 md:p-6">
+
+    <div class="mb-4">
+      <label class="block mb-2 font-semibold">Full Name</label>
+
+      <input
+        type="text"
+        id="fullname"
+        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500"
+        placeholder="Enter your full name"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label class="block mb-2 font-semibold">Phone Number</label>
+
+      <input
+        type="tel"
+        id="mobile"
+        inputmode="numeric"
+        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500"
+        placeholder="Enter mobile number"
+      />
+    </div>
+
+    <div>
+      <label class="block mb-2 font-semibold">Address</label>
+
+      <textarea
+        rows="5"
+        id="address"
+        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500 resize-none"
+        placeholder="Enter full address"></textarea>
+    </div>
+
+    <!-- HIDDEN INPUTS -->
+    <input type="hidden" id="productname">
+    <input type="hidden" id="qtyInput">
+    <input type="hidden" id="amount">
+    <input type="hidden" id="adid" value="">
+
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="bg-white rounded-2xl shadow-sm p-4 md:p-6">
+
+    <h2 class="text-xl md:text-2xl font-bold mb-5">
+      Order Summary
+    </h2>
+
+    <!-- PRODUCT -->
+    <div class="flex flex-col sm:flex-row gap-4 border-b pb-5">
+
+      <img
+        src="newimg/Artboard%205.png"
+        class="w-24 h-24 rounded-xl border object-cover mx-auto sm:mx-0"
+      />
+
+      <div class="flex-1 text-center sm:text-left">
+
+        <h3 class="font-bold text-lg">Lebrostone Multani Mitti Face Pack Soap</h3>
+
+        <p class="text-gray-500 mb-1 text-sm">
+          Size: <span id="productSize">100 gm</span>
+        </p>
+
+        <div class="flex justify-center sm:justify-start items-center gap-3 mb-3">
+
+          <span id="productPrice"
+            class="text-xl md:text-2xl font-bold text-green-600">
+            ₹150
+          </span>
+
+          <span id="productMrp"
+            class="line-through text-gray-400 text-sm md:text-base">
+            ₹280
+          </span>
+
+        </div>
+
+        <!-- QTY -->
+        <div class="flex justify-center sm:justify-start items-center gap-3">
+
+          <button id="minusBtn"
+            class="w-8 h-8 rounded bg-gray-200 hover:bg-gray-300">
+            -
+          </button>
+
+          <span id="productQty" class="font-bold text-lg">1</span>
+
+          <button id="plusBtn"
+            class="w-8 h-8 rounded bg-gray-200 hover:bg-gray-300">
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- PRICE -->
+    <div class="space-y-3 py-5 border-b text-sm md:text-base">
+
+      <div class="flex justify-between">
+        <span>Subtotal</span>
+        <span id="subtotalPrice">₹150</span>
+      </div>
+
+      <div class="flex justify-between">
+        <span>Shipping</span>
+        <span class="text-green-600 font-semibold">Free</span>
+      </div>
+
+    </div>
+
+    <!-- TOTAL -->
+    <div class="flex justify-between items-center py-5">
+
+      <span class="text-xl md:text-2xl font-bold">Total</span>
+
+      <span id="totalPrice"
+        class="text-2xl md:text-3xl font-bold">
+        ₹150
+      </span>
+
+    </div>
+
+    <!-- PAYMENT -->
+    <div class="mb-5">
+
+      <h3 class="font-bold mb-3">Payment Method</h3>
+
+      <label class="border rounded-xl p-3 md:p-4 flex items-center gap-3 cursor-pointer text-sm md:text-base">
+        <input type="radio" checked />
+        Cash on Delivery
+      </label>
+
+    </div>
+
+    <!-- BUTTON -->
+   <button id="placeOrderBtn"
+  class="w-64 bg-green-600 hover:bg-black text-white py-3 rounded-xl font-semibold shadow-lg transition active:scale-95 text-center mx-auto block">
+  Place Order
+</button>
+
+  </div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+let price = Number(params.get("price")) || 150;
+
+let mrp = Number(params.get("mrp")) || 280;
+
+let qty = Number(params.get("qty")) || 1;
+
+let size = params.get("size") || "100 gm";
+
+size = size.replaceAll("-", " ");
+
+document.getElementById("productSize").innerText = size;
+
+function updateTotal(){
+
+  document.getElementById("productQty").innerText = qty;
+
+  let total = price * qty;
+  let totalMrp = mrp * qty;
+
+  document.getElementById("productPrice").innerText = "₹" + total;
+  document.getElementById("productMrp").innerText = "₹" + totalMrp;
+  document.getElementById("subtotalPrice").innerText = "₹" + total;
+  document.getElementById("totalPrice").innerText = "₹" + total;
+
+}
+
+document.getElementById("plusBtn").onclick = () => {
+
+  // MAX LIMIT 10
+  if(qty < 10){
+
+    qty++;
+
+    updateTotal();
+
+  } else {
+
+    alert("Maximum quantity is 10");
+
+  }
+
+};
+
+document.getElementById("minusBtn").onclick = () => {
+
+  // MIN LIMIT 1
+  if(qty > 1){
+
+    qty--;
+
+    updateTotal();
+
+  }
+
+};
+
+updateTotal();
+
+</script>
+
+<script>
+
+$("#placeOrderBtn").click(function(){
+
+  // VALIDATION
+  if($("#fullname").val() == ""){
+    alert("Please enter full name");
+    return;
+  }
+
+  var mobile = $("#mobile").val().replace(/\D/g, "");
+  if(mobile.length === 12 && mobile.startsWith("91")) mobile = mobile.slice(2);
+  if(!/^[0-9]{10}$/.test(mobile)){
+    alert("Please enter a valid 10-digit mobile number");
+    return;
+  }
+
+  if($("#address").val() == ""){
+    alert("Please enter address");
+    return;
+  }
+
+  // PRODUCT DATA
+  $("#productname").val(
+    "Lebrostone Multani Mitti Face Pack Soap " + document.getElementById("productSize").innerText
+  );
+
+  $("#qtyInput").val(qty);
+
+  $("#amount").val(price * qty);
+
+  // Prevent duplicate submissions while the request is pending.
+  if ($("#placeOrderBtn").prop("disabled")) return;
+  $("#placeOrderBtn").prop("disabled", true).html("Processing...");
+
+  // API DATA
+  var data = {
+
+    FullName: $("#fullname").val(),
+
+    Mobile: mobile,
+
+    Address: $("#address").val(),
+
+    AdID: $("#adid").val(),
+
+    ProductName: $("#productname").val(),
+
+    Qty: $("#qtyInput").val(),
+
+    Amount: $("#amount").val()
+
+  };
+
+  // API CALL
+  $.ajax({
+
+    url: "https://crm.wizotork.com/admin/api_addlead/4/a87ff679a2f3e71d9181a67b7542122c?source=Website",
+
+    type: "POST",
+
+    data: data,
+
+    dataType: "json",
+    success: function(response){
+
+      console.log(response);
+
+      try {
+
+        var res = typeof response === "string"
+          ? JSON.parse(response)
+          : response;
+
+       if(res.status === "success"){
+
+  localStorage.setItem("productQty", qty);
+
+  localStorage.setItem("productPrice", price);
+
+  localStorage.setItem(
+    "productSize",
+    document.getElementById("productSize").innerText
+  );
+
+  localStorage.setItem(
+    "productTitle",
+    "Lebrostone Multani Mitti Face Pack Soap"
+  );
+
+  // REDIRECT
+  window.location.href = "thankyou.html";
+
+} else {
+
+          alert(res.message || "Something went wrong");
+
+          $("#placeOrderBtn").prop("disabled", false).html("Place Order");
+
+        }
+
+      } catch(e){
+
+        console.log(e);
+
+        alert("Something went wrong");
+
+        $("#placeOrderBtn").prop("disabled", false).html("Place Order");
+
+      }
+
+    },
+
+    error: function(xhr, status, error){
+
+      console.error("Order API request failed", { status: xhr.status, error: error, response: xhr.responseText });
+
+      var message = xhr.responseJSON && xhr.responseJSON.message;
+      alert(message || "We could not submit your order. Please try again later or contact us. Your order has not been confirmed.");
+
+      $("#placeOrderBtn").prop("disabled", false).html("Place Order");
+
+    }
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>

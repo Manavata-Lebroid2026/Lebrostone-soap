@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Thank You</title>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-N2XQ6MW2"></script>
+  <script>  window.dataLayer = window.dataLayer || [];  function gtag(){dataLayer.push(arguments);}  gtag('js', new Date());</script>
+
+  <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18162645937"></script>
+    <script>  window.dataLayer = window.dataLayer || [];  function gtag(){dataLayer.push(arguments);}  gtag('js', new Date());  gtag('config', 'AW-18162645937');</script>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-green-50 via-white to-green-100 min-h-screen flex items-center justify-center px-4 py-8">
+
+  <!-- MAIN CARD -->
+  <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden border border-green-100">
+
+    <!-- TOP BAR -->
+    <div class="bg-green-500 h-24 sm:h-28 relative">
+
+      <!-- SUCCESS ICON -->
+      <div class="absolute left-1/2 -bottom-10 -translate-x-1/2">
+
+        <div class="w-20 sm:w-24 h-20 sm:h-24 rounded-full bg-white shadow-xl flex items-center justify-center border-4 border-green-100">
+
+          <div class="w-14 sm:w-16 h-14 sm:h-16 rounded-full bg-green-100 flex items-center justify-center">
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+              class="w-8 sm:w-10 h-8 sm:h-10 text-green-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor">
+
+              <path stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                d="M5 13l4 4L19 7" />
+
+            </svg>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="pt-16 sm:pt-20 px-5 sm:px-8 pb-8 text-center">
+
+      <!-- TITLE -->
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">
+        Thank You! 🎉
+      </h1>
+
+      <!-- SUBTITLE -->
+      <p class="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed mb-6 sm:mb-8">
+        Your order has been successfully received. <br class="hidden sm:block">
+        Our team will contact you soon.
+      </p>
+
+      <!-- ORDER BOX -->
+      <div class="bg-gradient-to-br from-gray-50 to-green-50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-green-100 shadow-inner">
+
+        <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-5 flex items-center justify-center gap-2">
+          📦 Order Details
+        </h2>
+
+        <!-- PRODUCT -->
+        <div class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 flex justify-between items-center mb-3 shadow-sm border border-gray-100">
+          <span class="text-gray-600 text-sm sm:text-base">Product Name</span>
+<span
+  id="thankTitle"
+  class="font-bold text-gray-900 text-sm sm:text-base">
+  Lebrostone Multani Mitti Face Pack Soap
+</span>        </div>
+
+        <!-- QUANTITY -->
+        <div class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 flex justify-between items-center mb-3 shadow-sm border border-gray-100">
+          <span class="text-gray-600 text-sm sm:text-base">Quantity</span>
+          <span id="thankQty" class="font-bold text-gray-900">1</span>
+        </div>
+
+        <!-- SIZE -->
+        <div class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 flex justify-between items-center mb-3 shadow-sm border border-gray-100">
+          <span class="text-gray-600 text-sm sm:text-base">Product Size</span>
+          <span id="thankSize" class="font-bold text-gray-900">100 gm</span>
+        </div>
+
+        <!-- TOTAL -->
+        <div class="bg-green-500 rounded-xl sm:rounded-2xl p-4 sm:p-5 flex justify-between items-center shadow-lg">
+          <span class="text-white font-semibold text-base sm:text-lg">Total Amount</span>
+          <span id="thankPrice" class="font-extrabold text-xl sm:text-3xl text-white">₹150</span>
+        </div>
+
+      </div>
+
+      <!-- BUTTON -->
+      <a
+  href="index.html"
+  class="inline-flex items-center justify-center gap-2
+         mt-8 bg-black hover:bg-green-600 text-white
+         px-6 py-3 sm:px-10 sm:py-4
+         rounded-xl sm:rounded-2xl
+         text-sm sm:text-lg font-bold
+         shadow-lg hover:shadow-2xl transition-all duration-300 active:scale-95">
+
+  🏠 Go to Home
+
+</a>
+
+    </div>
+
+  </div>
+
+  <!-- SCRIPT -->
+<script>
+
+const qty = localStorage.getItem("productQty");
+
+const price = localStorage.getItem("productPrice");
+
+const size = localStorage.getItem("productSize");
+
+const title = localStorage.getItem("productTitle");
+
+if (qty)
+  document.getElementById("thankQty").innerText = qty;
+
+if (size)
+  document.getElementById("thankSize").innerText = size;
+
+if (title)
+  document.getElementById("thankTitle").innerText = title;
+
+if (price && qty) {
+
+  let total = parseInt(price) * parseInt(qty);
+
+  document.getElementById("thankPrice").innerText =
+    "₹" + total;
+
+}
+
+</script>
+
+</body>
+</html>
