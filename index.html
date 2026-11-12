@@ -145,7 +145,7 @@
     .footer-green-panel .quantity-control { color: #173d2d; }
     /* Responsive layouts and space for the fixed mobile order bar. */
     .purchase-actions .quantity-control { flex: 0 0 auto; }
-    .purchase-actions #orderBtn { min-height: 44px; flex: 1 1 150px; }
+    .purchase-actions #orderBtn, .purchase-actions #flipkartOrderLink { min-height: 44px; flex: 1 1 150px; }
     .quantity-control :is(button, #quantity) { min-width: 40px; min-height: 44px; }
     .quantity-control #quantity { display: flex; align-items: center; justify-content: center; }
     .ingredient-select { font-size: 16px; }
@@ -223,6 +223,16 @@
       #benefits .benefit-grid > div:nth-child(4) { grid-column: auto; min-height: 152px; padding: 18px 10px; }
       #benefits .benefit-grid > div:nth-child(5) { grid-column: 1 / -1; width: calc((100% - 12px) / 2); justify-self: center; }
       #benefits .benefit-grid p { font-size: 14px; }
+    }
+    .classic-purchase-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 12px; }
+    .classic-purchase-row .quantity-control { flex: 0 0 auto; }
+    .classic-store-buttons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; flex: 1 1 240px; }
+    .classic-store-button { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 16px; border: 1px solid #d5dbd0; border-radius: 8px; background: #fff; color: #173d2d; text-decoration: none; box-shadow: 0 2px 4px rgba(23,61,45,.04); }
+    .classic-store-button img { display: block; width: 80px; max-width: 100%; height: 26px; object-fit: contain; }
+    .classic-store-button:hover { background: #f7f8f4; border-color: #8c9d85; }
+    .classic-store-button:focus-visible { outline: 3px solid #b17c2d; outline-offset: 3px; }
+    @media (max-width: 639px) {
+      .classic-store-button { padding: 8px 12px; }
     }
   </style>
   <script id="tailwind-config">
@@ -599,7 +609,7 @@
             <div class="mt-4 space-y-1 text-sm text-on-surface-variant">
               <p><span class="font-semibold text-on-surface">उत्पाद:</span> Multani Mitti Face Pack Soap</p>
               <p><span class="font-semibold text-on-surface">ब्रांड:</span> Lebrostone</p>
-              <p><span class="font-semibold text-on-surface">कीमत और उपलब्धता:</span> Amazon पर देखें</p>
+              <p><span class="font-semibold text-on-surface">कीमत और उपलब्धता:</span> Amazon या Flipkart पर देखें</p>
             </div>
 
           </div>
@@ -620,39 +630,17 @@
             </div>
 
             <!-- QUANTITY + ORDER -->
-            <div class="purchase-actions flex flex-wrap items-center gap-3 mt-6">
-
-              <!-- QUANTITY -->
-              <div
-                class="quantity-control flex items-center bg-surface-container rounded-lg border border-outline-variant/30 overflow-hidden">
-
-                <!-- MINUS -->
-                <button id="minusBtn"
-                  class="w-10 h-10 flex items-center justify-center text-xl font-bold hover:bg-gray-100">
-                  -
-                </button>
-
-                <!-- QUANTITY -->
-                <span id="quantity" class="w-10 text-center font-bold text-lg">
-                  1
-                </span>
-
-                <!-- PLUS -->
-                <button id="plusBtn"
-                  class="w-10 h-10 flex items-center justify-center text-xl font-bold hover:bg-gray-100">
-                  +
-                </button>
-
+            <div class="classic-purchase-row">
+              <div class="quantity-control flex items-center bg-surface-container rounded-lg border border-outline-variant/30 overflow-hidden">
+                <button id="minusBtn" type="button" class="w-10 h-10 flex items-center justify-center text-xl font-bold hover:bg-gray-100" aria-label="मात्रा कम करें">−</button>
+                <span id="quantity" class="w-10 text-center font-bold text-lg" aria-live="polite">1</span>
+                <button id="plusBtn" type="button" class="w-10 h-10 flex items-center justify-center text-xl font-bold hover:bg-gray-100" aria-label="मात्रा बढ़ाएँ">+</button>
               </div>
-
-              <!-- ORDER BUTTON -->
-              <button id="orderBtn"
-                class="bg-green-600 text-white py-2.5 px-5 rounded-lg text-base font-semibold hover:bg-black transition duration-300 active:scale-95">
-                Amazon पर खरीदें
-              </button>
-
+              <div class="classic-store-buttons">
+                <button id="orderBtn" type="button" class="classic-store-button" aria-label="Amazon पर खरीदें"><img src="public/Amazon_logo.svg" alt="Amazon" width="80" height="26" /></button>
+                <a id="flipkartOrderLink" href="https://www.flipkart.com/lebrostone-multani-mitti-face-pack-soap-deep-cleanse-tan-removal/p/itmcc57cdb12b612?pid=SOPHPAQFBMMZG2W2&amp;marketplace=FLIPKART" target="_blank" rel="noopener noreferrer" class="classic-store-button" aria-label="Flipkart पर खरीदें"><img src="public/Flipkart%20(1).svg" alt="Flipkart" width="80" height="26" /></a>
+              </div>
             </div>
-            <p class="mt-2 text-xs text-on-surface-variant">यह बटन आपको Amazon की product listing पर ले जाएगा।</p>
           </div>
           <!-- AMAZON PURCHASE BUTTON (temporarily hidden) -->
           <!--
@@ -663,7 +651,7 @@
               </span>
               <span>Amazon पर खरीदें</span>
             </a>
-            <p class="mt-2 text-xs text-on-surface-variant">यह बटन आपको Amazon की product listing पर ले जाएगा।</p>
+            <p class="mt-2 text-xs text-on-surface-variant">इन बटनों से आप Amazon या Flipkart की product listing पर जाएँगे।</p>
           </div>
           -->
 
@@ -1425,6 +1413,13 @@
 
   </nav>
 
+  <!-- Desktop WhatsApp contact; mobile uses the bottom order bar. -->
+  <a href="https://wa.me/917067503515" target="_blank" rel="noopener noreferrer"
+    aria-label="Chat with Lebrostone on WhatsApp"
+    class="hidden md:inline-flex fixed bottom-6 right-6 z-50 items-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-white font-semibold shadow-lg hover:bg-[#1ebe5d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-700">
+    <i class="fa-brands fa-whatsapp text-2xl" aria-hidden="true"></i>
+    <span>WhatsApp</span>
+  </a>
 </body>
 
 </html>
