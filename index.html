@@ -74,6 +74,35 @@
         border-radius: 18px;
       }
     }
+    .benefits-slider { overflow: hidden; }
+    .benefits-track {
+      display: flex;
+      width: max-content;
+      animation: benefits-slide 24s linear infinite;
+    }
+    .benefits-group {
+      display: flex;
+      flex: 0 0 auto;
+      width: max(100vw, 780px);
+      align-items: center;
+    }
+    .benefits-group span {
+      flex: 1;
+      padding: 0 24px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .benefits-slider:hover .benefits-track,
+    .benefits-slider:focus-within .benefits-track { animation-play-state: paused; }
+    @keyframes benefits-slide {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .benefits-track { animation: none; width: 100%; }
+      .benefits-group { width: 100%; flex-wrap: wrap; gap: 12px; }
+      .benefits-group[aria-hidden="true"] { display: none; }
+    }
   </style>
   <script id="tailwind-config">
     tailwind.config = {
@@ -244,7 +273,12 @@
     </section>
     <!-- hero end -->
 
-<section class="py-4 px-gutter bg-[#173d2d] border-b border-[#c8b879]/40"><div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 justify-items-center gap-y-3 sm:gap-x-8 text-center text-sm sm:text-base text-[#f5efdc]"><span>✧ मुल्तानी मिट्टी का साथ</span><span>✧ देसी नुस्खे का नया अंदाज़</span><span>✧ रोज़ की देखभाल में</span></div></section>
+<section class="benefits-slider py-4 bg-[#173d2d] border-b border-[#c8b879]/40 text-sm sm:text-base text-[#f5efdc]" tabindex="0" aria-label="देसी देखभाल की खूबियाँ">
+  <div class="benefits-track">
+    <div class="benefits-group"><span>✧ मुल्तानी मिट्टी का साथ</span><span>✧ देसी नुस्खे का नया अंदाज़</span><span>✧ रोज़ की देखभाल में</span></div>
+    <div class="benefits-group" aria-hidden="true"><span>✧ मुल्तानी मिट्टी का साथ</span><span>✧ देसी नुस्खे का नया अंदाज़</span><span>✧ रोज़ की देखभाल में</span></div>
+  </div>
+</section>
 
 
 
