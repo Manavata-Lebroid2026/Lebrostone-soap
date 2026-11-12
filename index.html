@@ -63,10 +63,6 @@
     .ingredient-arrow:hover { background: #173d2d; }
     #ingredients :is(button, summary, .ingredients-carousel):focus-visible { outline: 3px solid #b17c2d; outline-offset: 4px; }
     .ingredient-count { color: #284c3d; letter-spacing: .12em; font-size: 14px; font-weight: 600; }
-    .ingredient-dots { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
-    .ingredient-dot { position: relative; width: 18px; height: 24px; }
-    .ingredient-dot::after { content: ''; display: block; width: 10px; height: 10px; margin: auto; border-radius: 50%; background: #cbc9b8; }
-    .ingredient-dot[aria-current="true"]::after { background: #284c3d; }
     .ingredient-hint { text-align: center; color: #77715f; font-size: 14px; margin-top: 8px; }
     @media (max-width: 639px) {
       #ingredients { padding: 32px 16px; }
@@ -149,8 +145,6 @@
     .quantity-control :is(button, #quantity) { min-width: 40px; min-height: 44px; }
     .quantity-control #quantity { display: flex; align-items: center; justify-content: center; }
     .ingredient-select { font-size: 16px; }
-    .ingredient-dot { width: 32px; height: 44px; }
-    .ingredient-dots { gap: 2px; }
 
     .care-steps > div { min-width: 0; }
     @media (max-width: 767px) {
@@ -226,7 +220,7 @@
     }
     .classic-purchase-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 12px; }
     .classic-purchase-row .quantity-control { flex: 0 0 auto; }
-    .classic-store-buttons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; flex: 1 1 240px; }
+    .classic-store-buttons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; flex: 1 1 280px; }
     .classic-store-button { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 16px; border: 1px solid #d5dbd0; border-radius: 8px; background: #fff; color: #173d2d; text-decoration: none; box-shadow: 0 2px 4px rgba(23,61,45,.04); }
     .classic-store-button img { display: block; width: 80px; max-width: 100%; height: 26px; object-fit: contain; }
     .classic-store-button:hover { background: #f7f8f4; border-color: #8c9d85; }
@@ -253,14 +247,18 @@
       .hero-section .hero-art img { top: 50%; width: 118%; height: auto; transform: translateY(-50%); }
       .hero-section .hero-copy { width: 44%; margin-left: 4%; padding: 32px; }
     }
-    .ingredient-dots { flex-wrap: wrap; max-width: 288px; margin-left: auto; margin-right: auto; }
     @media (max-width: 639px) {
       #ingredients .ingredient-slide { grid-template-columns: minmax(0, 1fr); }
       #ingredients .ingredient-card + .ingredient-card { border: 0; }
       #ingredients .ingredient-visual { height: auto; aspect-ratio: 4 / 3; max-width: 360px; }
       #ingredients .ingredient-image { height: 100%; }
-      .ingredient-dot { width: 32px; height: 32px; }
     }
+    @media (max-width: 767px) {
+      #about > div > div:first-child { order: 2; }
+      #about > div > div:last-child { order: 1; }
+    }
+    #productSection .variantBtn { min-width: 144px; padding: 10px 14px; }
+    .size-price-row { display: flex; align-items: baseline; justify-content: center; gap: 8px; margin-top: 4px; }
   </style>
   <script id="tailwind-config">
     tailwind.config = {
@@ -469,22 +467,13 @@
       <span class="ingredient-count" aria-live="polite" aria-atomic="true">01 / 08</span>
       <button type="button" class="ingredient-arrow ingredient-next" aria-label="अगली स्लाइड">›</button>
     </div>
-    <div class="ingredient-dots" aria-label="स्लाइड चुनें"><button type="button" class="ingredient-dot" aria-label="स्लाइड 1" aria-current="true"></button>
-<button type="button" class="ingredient-dot" aria-label="स्लाइड 2" aria-current="false"></button>
-<button type="button" class="ingredient-dot" aria-label="स्लाइड 3" aria-current="false"></button>
-<button type="button" class="ingredient-dot" aria-label="स्लाइड 4" aria-current="false"></button>
-<button type="button" class="ingredient-dot" aria-label="स्लाइड 5" aria-current="false"></button>
-<button type="button" class="ingredient-dot" aria-label="स्लाइड 6" aria-current="false"></button>
-<button type="button" class="ingredient-dot" aria-label="स्लाइड 7" aria-current="false"></button>
-<button type="button" class="ingredient-dot" aria-label="स्लाइड 8" aria-current="false"></button>    </div>
-    <p class="ingredient-hint">हर सामग्री की अपनी कहानी · बाएँ या दाएँ स्वाइप करें</p>
+<p class="ingredient-hint">हर सामग्री की अपनी कहानी · बाएँ या दाएँ स्वाइप करें</p>
   </div>
 </section>
 <script id="ingredients-carousel-script">
 (() => {
   const section = document.getElementById('ingredients');
   const carousel = section.querySelector('.ingredients-carousel');
-  const dotContainer = section.querySelector('.ingredient-dots');
   const count = section.querySelector('.ingredient-count');
   const picker = section.querySelector('.ingredient-select');
   const cards = [...section.querySelectorAll('.ingredient-card')];
@@ -492,12 +481,10 @@
   let perPage = mobile.matches ? 1 : 2;
   let current = 0;
   let slides = [];
-  let dots = [];
 
   function show(index, selected = null) {
     current = (index + slides.length) % slides.length;
     slides.forEach((slide, i) => { slide.hidden = i !== current; });
-    dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === current)));
     picker.value = String(selected === null ? current * perPage : selected);
     count.textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
   }
@@ -506,9 +493,7 @@
     const selected = Number(picker.value || current * perPage);
     perPage = mobile.matches ? 1 : 2;
     slides = [];
-    dots = [];
     const fragment = document.createDocumentFragment();
-    const dotFragment = document.createDocumentFragment();
     const total = Math.ceil(cards.length / perPage);
     for (let i = 0; i < total; i++) {
       const slide = document.createElement('div');
@@ -518,16 +503,8 @@
       cards.slice(i * perPage, (i + 1) * perPage).forEach(card => slide.appendChild(card));
       fragment.appendChild(slide);
       slides.push(slide);
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = 'ingredient-dot';
-      dot.setAttribute('aria-label', `स्लाइड ${i + 1}`);
-      dot.addEventListener('click', () => show(i));
-      dotFragment.appendChild(dot);
-      dots.push(dot);
     }
     carousel.replaceChildren(fragment);
-    dotContainer.replaceChildren(dotFragment);
     show(Math.floor(selected / perPage), selected);
   }
 
@@ -669,7 +646,7 @@
             <div class="mt-4 space-y-1 text-sm text-on-surface-variant">
               <p><span class="font-semibold text-on-surface">उत्पाद:</span> Multani Mitti Face Pack Soap</p>
               <p><span class="font-semibold text-on-surface">ब्रांड:</span> Lebrostone</p>
-              <p><span class="font-semibold text-on-surface">कीमत और उपलब्धता:</span> Amazon या Flipkart पर देखें</p>
+              <p><span class="font-semibold text-on-surface">कीमत और उपलब्धता:</span> Amazon, Flipkart या Meesho पर देखें</p>
             </div>
 
           </div>
@@ -682,10 +659,10 @@
             </span>
 
             <!-- VARIATIONS -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-base">
+            <div class="flex flex-wrap gap-base">
               <button type="button" class="variantBtn border-2 border-brand-green bg-secondary-container/10 rounded-xl p-base flex flex-col items-center" aria-pressed="true">
                 <span class="font-bold">100 gm</span>
-                <span class="text-on-surface-variant text-sm"><span class="text-green-600 font-bold text-lg">₹150</span></span>
+                <span class="size-price-row"><span class="text-3xl font-bold text-brand-green">₹150</span><span class="text-sm text-on-surface-variant line-through">₹280</span></span>
               </button>
             </div>
 
@@ -699,6 +676,7 @@
               <div class="classic-store-buttons">
                 <button id="orderBtn" type="button" class="classic-store-button" aria-label="Amazon पर खरीदें"><img src="public/Amazon_logo.svg" alt="Amazon" width="80" height="26" /></button>
                 <a id="flipkartOrderLink" href="https://www.flipkart.com/lebrostone-multani-mitti-face-pack-soap-deep-cleanse-tan-removal/p/itmcc57cdb12b612?pid=SOPHPAQFBMMZG2W2&amp;marketplace=FLIPKART" target="_blank" rel="noopener noreferrer" class="classic-store-button" aria-label="Flipkart पर खरीदें"><img src="public/Flipkart%20(1).svg" alt="Flipkart" width="80" height="26" /></a>
+                <a id="meeshoOrderLink" href="https://www.meesho.com/lebrostone-multani-mitti-face-pack-soap-deep-cleanse-tan-removal-100gm/p/gothv1" target="_blank" rel="noopener noreferrer" class="classic-store-button" aria-label="Meesho पर खरीदें"><img src="public/meeshoLogo%20(1)%20(1).svg" alt="Meesho" width="80" height="26" /></a>
               </div>
             </div>
           </div>
