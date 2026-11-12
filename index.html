@@ -151,12 +151,7 @@
     .ingredient-select { font-size: 16px; }
     .ingredient-dot { width: 32px; height: 44px; }
     .ingredient-dots { gap: 2px; }
-    .benefit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .benefit-grid > div { min-width: 0; justify-content: flex-start; }
-    .benefit-grid > div:last-child { grid-column: 1 / -1; width: calc((100% - 24px) / 2); justify-self: center; }
-    @media (max-width: 639px) {
-      .benefit-grid > div:last-child { width: calc((100% - 12px) / 2); }
-    }
+
     .care-steps > div { min-width: 0; }
     @media (max-width: 767px) {
       body { padding-bottom: calc(82px + env(safe-area-inset-bottom, 0px)); }
@@ -172,8 +167,8 @@
       #about > div { padding-left: 0; padding-right: 0; gap: 24px; }
       #productSection > div { gap: 28px; }
       #productTitle { font-size: clamp(24px, 6vw, 30px); line-height: 1.3; overflow-wrap: anywhere; }
-      #productSection .footer-green-panel { gap: 20px; }
-      #productSection .footer-green-panel .flex.items-center.gap-sm { flex-wrap: wrap; }
+      #productSection .product-details-panel { gap: 20px; }
+      #productSection .product-details-panel .flex.items-center.gap-sm { flex-wrap: wrap; }
       .footer-green-panel .purchase-actions { gap: 12px; }
       .mobile-order-nav { padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
       .mobile-order-nav button { min-width: 0; min-height: 48px; padding-left: 8px; padding-right: 8px; gap: 6px; }
@@ -184,13 +179,10 @@
       .purchasePopup button { min-width: 36px; min-height: 44px; }
       .purchasePopup img { flex-shrink: 0; }
       #benefits h2 { max-width: 520px; margin: 0 auto 24px; line-height: 1.4; }
-      .benefit-grid > div { padding: 18px 12px; }
-      .benefit-grid p { font-size: 14px; line-height: 1.5; letter-spacing: 0; }
       .care-steps h4 { font-size: 15px; line-height: 1.5; }
       .care-steps p { line-height: 1.6; }
     }
     @media (max-width: 639px) {
-      .benefit-grid > div:last-child { grid-column: 1 / -1; width: calc((100% - 12px) / 2); justify-self: center; }
       #ingredients .ingredient-card { padding: 22px 18px; }
       #ingredients .ingredient-visual { height: clamp(180px, 56vw, 240px); }
       #ingredients .ingredient-card h3 { font-size: 21px; }
@@ -198,6 +190,39 @@
       .ingredients-heading h2 { font-size: 28px; }
       .ingredient-controls { gap: 18px; }
       .ingredient-hint { font-size: 13px; }
+    }
+    /* Three benefits above two centered benefits; steps stay in pairs. */
+    .care-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .care-steps > div { height: 100%; padding: 24px 18px; }
+
+    /* One layout owns the benefit cards; avoid competing utility columns. */
+    #benefits .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    #benefits .benefit-grid > div {
+      grid-column: span 2;
+      width: 100%;
+      min-width: 0;
+      min-height: 168px;
+      padding: 24px 16px;
+      justify-content: center;
+      border: 1px solid #edf0eb;
+      border-radius: 18px;
+    }
+    #benefits .benefit-grid > div:nth-child(4) { grid-column: 2 / span 2; }
+    #benefits .benefit-grid > div:nth-child(5) { grid-column: 4 / span 2; }
+    #benefits .benefit-grid p { font-size: 16px; line-height: 1.5; letter-spacing: 0; }
+    @media (max-width: 639px) {
+      #benefits .benefit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      #benefits .benefit-grid > div,
+      #benefits .benefit-grid > div:nth-child(4) { grid-column: auto; min-height: 152px; padding: 18px 10px; }
+      #benefits .benefit-grid > div:nth-child(5) { grid-column: 1 / -1; width: calc((100% - 12px) / 2); justify-self: center; }
+      #benefits .benefit-grid p { font-size: 14px; }
     }
   </style>
   <script id="tailwind-config">
@@ -485,19 +510,8 @@
             देसी देखभाल से नाता जोड़ो।<br />थोड़ा वक़्त अपनी ओर मोड़ो।
           </p>
         </div>
-        <div class="footer-green-panel p-4 sm:p-6 rounded-xl shadow-sm border border-[#c8b879]/40">
-          <div class="flex flex-col gap-4">
-            <img src="newimg/Artboard%202.png" alt="Lebrostone Multani Mitti Face Pack Soap ingredients" loading="lazy" class="w-full h-64 sm:h-64 object-contain rounded-lg" />
-            <div>
-              <h3 class="font-title-sm text-base sm:text-title-sm  mb-2 text-[#173d2d]">इस साबुन की सामग्री</h3>
-              <p class="text-sm text-on-surface-variant leading-relaxed">
-                मुल्तानी मिट्टी, बेसन, चावल का आटा, नारियल तेल, अरंडी का तेल, गुलाब का तेल, जैतून का तेल, सी बकथॉर्न तेल, बादाम तेल, नीम तेल, हल्दी, दाल का आटा, कपूर, पेपरमिंट एक्सट्रैक्ट, चंदन का तेल, टी ट्री ऑयल और प्रिज़र्वेटिव।
-              </p>
-              <a href="#ingredients" class="inline-flex mt-3 text-sm font-semibold text-brand-green underline underline-offset-4 hover:text-red-600">
-                हर सामग्री के बारे में जानें
-              </a>
-            </div>
-          </div>
+        <div class="overflow-hidden rounded-xl border-2 border-[#173d2d] bg-white shadow-sm">
+          <img src="newimg/Artboard%202.png" alt="Lebrostone साबुन की सामग्री: मुल्तानी मिट्टी, बेसन, चावल का आटा और तेल" loading="lazy" decoding="async" class="block w-full h-auto" />
         </div>
       </div>
     </section>
@@ -526,7 +540,7 @@
         </div>
 
         <!-- PRODUCT DETAILS -->
-        <div class="footer-green-panel flex flex-col gap-md min-w-0 p-4 sm:p-6 rounded-xl border border-[#c8b879]/40">
+        <div class="product-details-panel bg-white text-on-surface flex flex-col gap-md min-w-0 p-4 sm:p-6 rounded-xl border border-outline-variant/30">
 
           <div>
             <h2 id="productTitle" class="font-headline-md text-headline-md  mb-xs text-[#173d2d]">
@@ -872,7 +886,7 @@
       </h2>
 
       <!-- GRID -->
-      <div class="benefit-grid max-w-3xl mx-auto grid grid-cols-2 gap-3 sm:gap-6">
+      <div class="benefit-grid">
 
         <!-- ITEM 1 -->
         <div
@@ -966,7 +980,7 @@
       </div>
 
       <!-- STEPS -->
-      <div class="care-steps max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+      <div class="care-steps max-w-3xl mx-auto grid grid-cols-2 gap-3 sm:gap-6">
 
         <!-- STEP 1 -->
         <div class="flex flex-col items-center text-center p-4 bg-white rounded-xl shadow-sm">
@@ -1013,7 +1027,7 @@
           </div>
 
           <h4 class="font-semibold mb-2 text-base">
-            धोएँ, थपथपाएँ, हो गया
+            धोएँ
           </h4>
 
           <p class="text-sm text-gray-600">
