@@ -234,6 +234,25 @@
     @media (max-width: 639px) {
       .classic-store-button { padding: 8px 12px; }
     }
+    /* The artwork leaves room on the left for desktop copy. */
+    .hero-section { position: relative; isolation: isolate; display: flex; align-items: center; width: 100%; height: 720px; overflow: hidden; background: #f4f5f7; }
+    .hero-section .hero-art { position: absolute; top: 0; right: 0; width: 60%; height: 100%; pointer-events: none; overflow: hidden; }
+    .hero-section .hero-art img { display: block; position: absolute; top: 0; right: 0; width: auto; max-width: none; height: 100%; opacity: 1; }
+    .hero-section .hero-copy { position: relative; z-index: 1; width: 46%; max-width: 690px; margin: 0 0 0 6%; padding: 44px; background: rgba(255,255,255,.94); border: 1px solid #e4e8e1; border-radius: 24px; box-shadow: 0 20px 60px -30px rgba(23,61,45,.25); }
+    .hero-copy h1 { line-height: 1.4; }
+    .hero-copy > .flex { flex-wrap: wrap; }
+    @media (max-width: 1023px) {
+      .hero-section { height: auto; min-height: 0; aspect-ratio: auto; flex-direction: column; padding: 0 16px 24px; gap: 0; }
+      .hero-section .hero-art { position: relative; inset: auto; width: calc(100% + 32px); height: auto; aspect-ratio: 1.1; max-height: 540px; }
+      .hero-section .hero-art img { position: absolute; inset: 0; width: 100%; max-width: 100%; height: 100%; object-fit: cover; object-position: right center; }
+      .hero-section .hero-copy { width: 100%; max-width: 620px; margin: 0; padding: 24px; border-radius: 20px; }
+      .hero-copy h1 { font-size: clamp(24px, 5vw, 30px); }
+      .hero-copy > p { font-size: 16px; }
+    }
+    @media (min-width: 1024px) and (max-width: 1599px) {
+      .hero-section .hero-art img { top: 50%; width: 118%; height: auto; transform: translateY(-50%); }
+      .hero-section .hero-copy { width: 44%; margin-left: 4%; padding: 32px; }
+    }
   </style>
   <script id="tailwind-config">
     tailwind.config = {
@@ -360,13 +379,13 @@
 
   <!-- hero start -->
   <main class="pb-0">
-    <section class="hero-section relative isolate w-full min-h-[720px] flex items-center overflow-hidden bg-[radial-gradient(ellipse_at_78%_48%,#f0e3d5_0%,#faf7f3_37%,#fff_72%)]">
-      <div class="hero-art absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <img src="public/main.png" alt="Lebrostone Multani Mitti Face Pack Soap with soap bar" class="absolute right-[-12%] top-[-10%] h-[120%] w-full object-contain object-center opacity-30 md:right-[-4%] md:top-[-12%] md:h-[124%] md:w-[68%] md:object-right md:opacity-100" />
+    <section class="hero-section" aria-label="Lebrostone Multani Mitti Face Pack Soap">
+      <div class="hero-art">
+        <img src="public/hero-lebrostone.png" alt="Lebrostone Multani Mitti Face Pack Soap pack and soap bar on a white pedestal" width="1350" height="720" fetchpriority="high" decoding="async" />
       </div>
 
       <div
-        class="hero-copy ml-4 sm:ml-8 md:ml-[6vw] max-w-3xl md:max-w-[46%] bg-white/95 shadow-[0_24px_70px_-28px_rgba(74,45,29,0.35)] rounded-2xl p-7 sm:p-10 md:p-11 border border-[#eee4da] relative z-10 overflow-hidden backdrop-blur-sm">
+        class="hero-copy">
         <!-- Badge -->
         <span
           class="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
