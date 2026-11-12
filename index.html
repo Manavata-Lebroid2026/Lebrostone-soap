@@ -253,6 +253,14 @@
       .hero-section .hero-art img { top: 50%; width: 118%; height: auto; transform: translateY(-50%); }
       .hero-section .hero-copy { width: 44%; margin-left: 4%; padding: 32px; }
     }
+    .ingredient-dots { flex-wrap: wrap; max-width: 288px; margin-left: auto; margin-right: auto; }
+    @media (max-width: 639px) {
+      #ingredients .ingredient-slide { grid-template-columns: minmax(0, 1fr); }
+      #ingredients .ingredient-card + .ingredient-card { border: 0; }
+      #ingredients .ingredient-visual { height: auto; aspect-ratio: 4 / 3; max-width: 360px; }
+      #ingredients .ingredient-image { height: 100%; }
+      .ingredient-dot { width: 32px; height: 32px; }
+    }
   </style>
   <script id="tailwind-config">
     tailwind.config = {
@@ -476,22 +484,55 @@
 (() => {
   const section = document.getElementById('ingredients');
   const carousel = section.querySelector('.ingredients-carousel');
-  const slides = [...section.querySelectorAll('.ingredient-slide')];
-  const dots = [...section.querySelectorAll('.ingredient-dot')];
+  const dotContainer = section.querySelector('.ingredient-dots');
   const count = section.querySelector('.ingredient-count');
   const picker = section.querySelector('.ingredient-select');
   const cards = [...section.querySelectorAll('.ingredient-card')];
+  const mobile = window.matchMedia('(max-width: 639px)');
+  let perPage = mobile.matches ? 1 : 2;
   let current = 0;
-  function show(index) {
+  let slides = [];
+  let dots = [];
+
+  function show(index, selected = null) {
     current = (index + slides.length) % slides.length;
-    picker.value = '';
     slides.forEach((slide, i) => { slide.hidden = i !== current; });
     dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === current)));
+    picker.value = String(selected === null ? current * perPage : selected);
     count.textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
   }
+
+  function build() {
+    const selected = Number(picker.value || current * perPage);
+    perPage = mobile.matches ? 1 : 2;
+    slides = [];
+    dots = [];
+    const fragment = document.createDocumentFragment();
+    const dotFragment = document.createDocumentFragment();
+    const total = Math.ceil(cards.length / perPage);
+    for (let i = 0; i < total; i++) {
+      const slide = document.createElement('div');
+      slide.className = 'ingredient-slide';
+      slide.setAttribute('role', 'group');
+      slide.setAttribute('aria-label', `${i + 1} / ${total}`);
+      cards.slice(i * perPage, (i + 1) * perPage).forEach(card => slide.appendChild(card));
+      fragment.appendChild(slide);
+      slides.push(slide);
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'ingredient-dot';
+      dot.setAttribute('aria-label', `स्लाइड ${i + 1}`);
+      dot.addEventListener('click', () => show(i));
+      dotFragment.appendChild(dot);
+      dots.push(dot);
+    }
+    carousel.replaceChildren(fragment);
+    dotContainer.replaceChildren(dotFragment);
+    show(Math.floor(selected / perPage), selected);
+  }
+
   section.querySelector('.ingredient-prev').addEventListener('click', () => show(current - 1));
   section.querySelector('.ingredient-next').addEventListener('click', () => show(current + 1));
-  dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
   carousel.addEventListener('keydown', event => {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault();
@@ -501,9 +542,7 @@
   picker.addEventListener('change', () => {
     if (picker.value === '') return;
     const selected = Number(picker.value);
-    show(Math.floor(selected / 2));
-    picker.value = String(selected);
-    cards[selected].scrollIntoView({ behavior: 'instant', block: 'nearest' });
+    show(Math.floor(selected / perPage), selected);
   });
   let touchStart = null;
   carousel.addEventListener('touchstart', event => {
@@ -517,6 +556,8 @@
     touchStart = null;
   }, { passive: true });
   carousel.addEventListener('touchcancel', () => { touchStart = null; }, { passive: true });
+  mobile.addEventListener('change', build);
+  build();
 })();
 </script>
 
