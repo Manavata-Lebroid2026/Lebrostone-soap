@@ -143,6 +143,57 @@
       border-color: #c8b879;
     }
     .footer-green-panel .quantity-control { color: #173d2d; }
+    /* Responsive layouts and space for the fixed mobile order bar. */
+    .purchase-actions .quantity-control { flex: 0 0 auto; }
+    .purchase-actions #orderBtn { min-height: 44px; flex: 1 1 150px; }
+    .quantity-control :is(button, #quantity) { min-width: 40px; min-height: 44px; }
+    .quantity-control #quantity { display: flex; align-items: center; justify-content: center; }
+    .ingredient-select { font-size: 16px; }
+    .ingredient-dot { width: 32px; height: 44px; }
+    .ingredient-dots { gap: 2px; }
+    .benefit-grid > div { min-width: 0; justify-content: flex-start; }
+    .care-steps > div { min-width: 0; }
+    @media (max-width: 767px) {
+      body { padding-bottom: calc(82px + env(safe-area-inset-bottom, 0px)); }
+      header img { max-width: 45vw; object-fit: contain; }
+      header button { min-height: 44px; }
+      .hero-section { min-height: 0; flex-direction: column; gap: 16px; padding: 16px; }
+      .hero-section .hero-art { position: relative; inset: auto; width: 100%; height: clamp(240px, 65vw, 380px); }
+      .hero-section .hero-art img { position: static; width: 100%; height: 100%; opacity: 1; object-fit: contain; object-position: center; }
+      .hero-section .hero-copy { width: 100%; max-width: none; margin: 0; padding: 24px; }
+      .hero-copy h1 { font-size: clamp(24px, 5.5vw, 30px); line-height: 1.4; }
+      .hero-copy > p { font-size: 16px; }
+      main > section.py-xl { padding: 40px 16px; }
+      #about > div { padding-left: 0; padding-right: 0; gap: 24px; }
+      #productSection > div { gap: 28px; }
+      #productTitle { font-size: clamp(24px, 6vw, 30px); line-height: 1.3; overflow-wrap: anywhere; }
+      #productSection .footer-green-panel { gap: 20px; }
+      #productSection .footer-green-panel .flex.items-center.gap-sm { flex-wrap: wrap; }
+      .footer-green-panel .purchase-actions { gap: 12px; }
+      .mobile-order-nav { padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
+      .mobile-order-nav button { min-width: 0; min-height: 48px; padding-left: 8px; padding-right: 8px; gap: 6px; }
+      .mobile-order-nav button span { font-size: 13px; }
+      .mobile-order-nav .material-symbols-outlined { font-size: 20px; }
+      .purchasePopup { left: 12px; bottom: calc(94px + env(safe-area-inset-bottom, 0px)); max-width: calc(100vw - 24px); padding: 8px 10px; gap: 8px; }
+      .purchasePopup p { min-width: 0; font-size: 12px; }
+      .purchasePopup button { min-width: 36px; min-height: 44px; }
+      .purchasePopup img { flex-shrink: 0; }
+      #benefits h2 { max-width: 520px; margin: 0 auto 24px; line-height: 1.4; }
+      .benefit-grid > div { padding: 18px 12px; }
+      .benefit-grid p { font-size: 14px; line-height: 1.5; letter-spacing: 0; }
+      .care-steps h4 { font-size: 15px; line-height: 1.5; }
+      .care-steps p { line-height: 1.6; }
+    }
+    @media (max-width: 639px) {
+      .benefit-grid > div:last-child { grid-column: 1 / -1; width: calc((100% - 12px) / 2); justify-self: center; }
+      #ingredients .ingredient-card { padding: 22px 18px; }
+      #ingredients .ingredient-visual { height: clamp(180px, 56vw, 240px); }
+      #ingredients .ingredient-card h3 { font-size: 21px; }
+      .ingredient-intro, .ingredient-content p { font-size: 16px; line-height: 1.75; }
+      .ingredients-heading h2 { font-size: 28px; }
+      .ingredient-controls { gap: 18px; }
+      .ingredient-hint { font-size: 13px; }
+    }
   </style>
   <script id="tailwind-config">
     tailwind.config = {
@@ -269,13 +320,13 @@
 
   <!-- hero start -->
   <main class="pb-0">
-    <section class="relative isolate w-full min-h-[720px] flex items-center overflow-hidden bg-[radial-gradient(ellipse_at_78%_48%,#f0e3d5_0%,#faf7f3_37%,#fff_72%)]">
-      <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+    <section class="hero-section relative isolate w-full min-h-[720px] flex items-center overflow-hidden bg-[radial-gradient(ellipse_at_78%_48%,#f0e3d5_0%,#faf7f3_37%,#fff_72%)]">
+      <div class="hero-art absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <img src="public/main.png" alt="Lebrostone Multani Mitti Face Pack Soap with soap bar" class="absolute right-[-12%] top-[-10%] h-[120%] w-full object-contain object-center opacity-30 md:right-[-4%] md:top-[-12%] md:h-[124%] md:w-[68%] md:object-right md:opacity-100" />
       </div>
 
       <div
-        class="ml-4 sm:ml-8 md:ml-[6vw] max-w-3xl md:max-w-[46%] bg-white/95 shadow-[0_24px_70px_-28px_rgba(74,45,29,0.35)] rounded-2xl p-7 sm:p-10 md:p-11 border border-[#eee4da] relative z-10 overflow-hidden backdrop-blur-sm">
+        class="hero-copy ml-4 sm:ml-8 md:ml-[6vw] max-w-3xl md:max-w-[46%] bg-white/95 shadow-[0_24px_70px_-28px_rgba(74,45,29,0.35)] rounded-2xl p-7 sm:p-10 md:p-11 border border-[#eee4da] relative z-10 overflow-hidden backdrop-blur-sm">
         <!-- Badge -->
         <span
           class="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
@@ -550,7 +601,7 @@
             </div>
 
             <!-- QUANTITY + ORDER -->
-            <div class="flex items-center gap-lg mt-6">
+            <div class="purchase-actions flex flex-wrap items-center gap-3 mt-6">
 
               <!-- QUANTITY -->
               <div
@@ -808,7 +859,7 @@
 
 
 
-    <section class="py-12 px-4 bg-gray-50">
+    <section id="benefits" class="py-12 px-4 bg-gray-50">
 
       <!-- TITLE -->
       <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-10">
@@ -816,7 +867,7 @@
       </h2>
 
       <!-- GRID -->
-      <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      <div class="benefit-grid max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6">
 
         <!-- ITEM 1 -->
         <div
@@ -910,7 +961,7 @@
       </div>
 
       <!-- STEPS -->
-      <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="care-steps max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
 
         <!-- STEP 1 -->
         <div class="flex flex-col items-center text-center p-4 bg-white rounded-xl shadow-sm">
@@ -1320,7 +1371,7 @@
   </footer>
   <!-- BOTTOM MOBILE NAV -->
   <nav
-    class="fixed bottom-0 left-0 w-full z-50 md:hidden bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] px-3 py-3">
+    class="mobile-order-nav fixed bottom-0 left-0 w-full z-50 md:hidden bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] px-3 py-3">
 
     <div class="flex gap-3">
 
