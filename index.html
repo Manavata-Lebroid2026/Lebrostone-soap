@@ -50,24 +50,18 @@
     }
     #ingredients .ingredient-summary { min-width: 0; }
     #ingredients .ingredient-visual {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      max-height: 244px;
+      height: 244px;
       min-width: 0;
-      padding: 0;
       overflow: hidden;
-      border-radius: 32px;
-
+      border-radius: 24px;
     }
     #ingredients .ingredient-image {
       display: block;
-      width: auto;
-      height: auto;
-      max-width: 100%;
-      max-height: 244px;
-      object-fit: contain;
-      border-radius: 20px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: inherit;
     }
     @media (max-width: 639px) {
       #ingredients .ingredient-card {
@@ -76,11 +70,9 @@
         gap: 16px;
       }
       #ingredients .ingredient-visual {
-        max-height: 128px;
-        padding: 0;
-        border-radius: 24px;
+        height: 128px;
+        border-radius: 18px;
       }
-      #ingredients .ingredient-image { max-height: 128px; border-radius: 18px; }
     }
   </style>
   <script id="tailwind-config">
@@ -203,8 +195,9 @@
 
   </header>
   <!-- header close -->
+  <div class="pt-16"><div class="py-3 px-4 text-center text-sm sm:text-base bg-[#173d2d] text-[#f5efdc] border-b border-[#c8b879]/40">पुराने नुस्खों का एहसास, आज की Skin Care के साथ।</div></div>
 
-  <div class="pt-20 pb-3 px-4 text-center text-sm text-on-surface-variant bg-surface-container-low">पुराने नुस्खों का एहसास, आज की Skin Care के साथ।</div>
+
   <!-- hero start -->
   <main class="pb-0">
     <section class="relative isolate w-full min-h-[720px] flex items-center overflow-hidden bg-[radial-gradient(ellipse_at_78%_48%,#f0e3d5_0%,#faf7f3_37%,#fff_72%)]">
@@ -222,7 +215,7 @@
 
         <!-- Title -->
         <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4 leading-snug">
-          अपनी मिट्टी। अपनी देखभाल। अपना Lebrostone।
+          <span class="block">अपनी मिट्टी।</span><span class="block">अपनी देखभाल।</span><span class="block">अपना Lebrostone।</span>
         </h1>
 
         <!-- Description -->
@@ -250,11 +243,12 @@
 
     </section>
     <!-- hero end -->
-<section class="py-4 px-gutter bg-surface-container-low border-y border-outline-variant/30"><div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 justify-items-center gap-y-3 sm:gap-x-8 text-center text-sm sm:text-base text-on-surface-variant"><span>✧ मुल्तानी मिट्टी का साथ</span><span>✧ देसी नुस्खे का नया अंदाज़</span><span>✧ रोज़ की देखभाल में</span></div></section>
+
+<section class="py-4 px-gutter bg-[#173d2d] border-b border-[#c8b879]/40"><div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 justify-items-center gap-y-3 sm:gap-x-8 text-center text-sm sm:text-base text-[#f5efdc]"><span>✧ मुल्तानी मिट्टी का साथ</span><span>✧ देसी नुस्खे का नया अंदाज़</span><span>✧ रोज़ की देखभाल में</span></div></section>
 
 
 
-    <section id="ingredients" class="py-xl px-gutter bg-surface-container-low border-2"><div class="max-w-6xl mx-auto"><div class="max-w-3xl mb-8"><h2 class="font-headline-md text-xl sm:text-2xl md:text-headline-md mb-4">हमारी खूबियों का आँगन</h2><h3 class="text-lg sm:text-xl font-semibold mb-3">प्रकृति के नाम। देसी देखभाल की पहचान।</h3><p class="text-on-surface-variant leading-relaxed">देसी देखभाल का हर साथी है खास। मिलिए उन सामग्रियों से, जो मिलकर बनाती हैं आपका Lebrostone साबुन।</p></div><div class="ingredient-list"><article class="ingredient-card bg-surface-container-lowest p-4 sm:p-6 rounded-xl shadow-sm border border-outline-variant/30">
+    <section id="ingredients" class="py-xl px-gutter bg-surface-container-low border-2"><div class="max-w-6xl mx-auto"><div class="max-w-3xl mb-8"><h2 class="font-headline-md text-xl sm:text-2xl md:text-headline-md mb-4 text-[#173d2d]">Lebrostone Multani Mitti Face Pack Soap</h2><h3 class="text-lg sm:text-xl font-semibold mb-3 text-[#173d2d]">इस साबुन की सामग्री</h3><p class="text-on-surface-variant leading-relaxed">देसी देखभाल का हर साथी है खास। मिलिए उन सामग्रियों से, जो मिलकर बनाती हैं आपका Lebrostone साबुन।</p></div><div class="ingredient-list"><article class="ingredient-card bg-surface-container-lowest p-4 sm:p-6 rounded-xl shadow-sm border border-outline-variant/30">
   <div class="ingredient-summary"><h3 class="font-title-sm text-lg font-semibold mb-3">01 · मुल्तानी मिट्टी (Multani Mitti)</h3><p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">मुल्तानी मिट्टी एक खनिज आधारित मिट्टी है, जिसे Fuller’s Earth भी कहते हैं। भारतीय घरों में इसका इस्तेमाल लंबे समय से लेप और उबटन में होता आया है। कॉस्मेटिक उत्पादों में यह अतिरिक्त तेल और नमी सोखने का काम कर सकती है। यह उत्पाद को मिट्टी जैसी बनावट देने में भी योगदान दे सकती है। इसे लगाने पर त्वचा खिंची या रूखी महसूस हो, तो इस्तेमाल की आवृत्ति पर ध्यान दें।</p></div>
   <div class="ingredient-visual"><img class="ingredient-image" src="images/multanimitti.webp" alt="Multani mitti clay" width="640" height="480" loading="lazy" decoding="async" /></div>
 </article>
@@ -264,7 +258,7 @@
 </article>
 <article class="ingredient-card bg-surface-container-lowest p-4 sm:p-6 rounded-xl shadow-sm border border-outline-variant/30">
   <div class="ingredient-summary"><h3 class="font-title-sm text-lg font-semibold mb-3">03 · चावल का आटा (Rice Flour)</h3><p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">चावल को पीसकर तैयार किया गया यह आटा स्टार्च से भरपूर होता है। यह घरेलू उबटन और कुछ कॉस्मेटिक मिश्रणों में इस्तेमाल होने वाली सामग्री है। चावल से प्राप्त स्टार्च कॉस्मेटिक्स में नमी सोखने और बनावट देने के लिए उपयोग होता है। चावल का आटा, चावल का तेल और rice extract अलग-अलग सामग्रियाँ हैं। इसलिए दूसरी rice-based सामग्री पर हुए शोध के फायदे इस आटे पर सीधे लागू नहीं किए जा सकते।</p></div>
-  <div class="ingredient-visual"><img class="ingredient-image" src="images/Rice_Flour.avif" alt="Rice flour" width="640" height="480" loading="lazy" decoding="async" /></div>
+  <div class="ingredient-visual"><img class="ingredient-image" src="images/Natural-Rice-Flour.jpg" alt="Rice flour" width="640" height="480" loading="lazy" decoding="async" /></div>
 </article>
 <article class="ingredient-card bg-surface-container-lowest p-4 sm:p-6 rounded-xl shadow-sm border border-outline-variant/30">
   <div class="ingredient-summary"><h3 class="font-title-sm text-lg font-semibold mb-3">04 · नारियल तेल (Coconut Oil)</h3><p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">नारियल तेल नारियल की गिरी से प्राप्त वनस्पति तेल है। इसमें कई फैटी एसिड होते हैं, जिनमें लॉरिक एसिड प्रमुख है। स्किन-केयर उत्पादों में इसका इस्तेमाल त्वचा को मुलायम एहसास देने के लिए किया जाता है। साबुन बनाने में इसे आधार तैयार करने के लिए भी इस्तेमाल किया जा सकता है। धोकर हटाए जाने वाले साबुन का असर, त्वचा पर सीधे लगाए जाने वाले नारियल तेल से अलग हो सकता है।</p></div>
@@ -288,7 +282,7 @@
 </article>
 <article class="ingredient-card bg-surface-container-lowest p-4 sm:p-6 rounded-xl shadow-sm border border-outline-variant/30">
   <div class="ingredient-summary"><h3 class="font-title-sm text-lg font-semibold mb-3">09 · बादाम तेल (Almond Oil)</h3><p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">बादाम तेल बादाम से प्राप्त वनस्पति तेल है। इसमें ओलिक और लिनोलिक एसिड जैसे फैटी एसिड पाए जाते हैं। कॉस्मेटिक उत्पादों में इसे त्वचा की सतह को मुलायम महसूस कराने के लिए इस्तेमाल किया जाता है। पैक में बादाम तेल का प्रकार, उसकी refining और मात्रा नहीं बताई गई है। बादाम से ज्ञात एलर्जी होने पर इस सामग्री की मौजूदगी ध्यान में रखें।</p></div>
-  <div class="ingredient-visual"><img class="ingredient-image" src="images/pexels-towfiqu-barbhuiya-3440682-11852052.jpg" alt="Almond oil with almonds" width="640" height="480" loading="lazy" decoding="async" /></div>
+  <div class="ingredient-visual"><img class="ingredient-image" src="images/almond-oil.webp" alt="Almond oil with almonds" width="640" height="480" loading="lazy" decoding="async" /></div>
 </article>
 <article class="ingredient-card bg-surface-container-lowest p-4 sm:p-6 rounded-xl shadow-sm border border-outline-variant/30">
   <div class="ingredient-summary"><h3 class="font-title-sm text-lg font-semibold mb-3">10 · नीम तेल (Neem Oil)</h3><p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">नीम तेल सामान्यतः नीम के बीजों से प्राप्त होता है। इसकी अपनी विशिष्ट गंध होती है और नीम पारंपरिक भारतीय देखभाल का परिचित पौधा है। नीम का तेल, पत्तियों का पाउडर और नीम का extract अलग-अलग तैयारियाँ हैं। आपके पैक पर Neem Oil लिखा है, इसलिए इसे तेल के रूप में ही बताना सही है। इसकी मौजूदगी भर से तैयार साबुन को फंगल इन्फेक्शन, खुजली या मुहाँसों का इलाज नहीं कहा जा सकता।</p></div>
@@ -316,7 +310,7 @@
 </article>
 <article class="ingredient-card bg-surface-container-lowest p-4 sm:p-6 rounded-xl shadow-sm border border-outline-variant/30">
   <div class="ingredient-summary"><h3 class="font-title-sm text-lg font-semibold mb-3">16 · टी ट्री ऑयल (Tea Tree Oil)</h3><p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">टी ट्री ऑयल सामान्यतः Melaleuca alternifolia की पत्तियों से प्राप्त essential oil है। इसकी अपनी विशिष्ट तेज़, हर्बल गंध होती है। इसका इस्तेमाल कई स्किन-केयर और सफाई संबंधी फॉर्मूलों में किया जाता है। विशेष टी ट्री तैयारियों पर हुए शोध के नतीजे इस साबुन पर सीधे लागू नहीं किए जा सकते। यह कुछ लोगों में एलर्जी पैदा कर सकता है; इसकी मौजूदगी भर से साबुन antifungal treatment नहीं बन जाता।</p></div>
-  <div class="ingredient-visual"><img class="ingredient-image" src="images/pexels-pnw-prod-8490090.jpg" alt="Tea tree oil in a dropper bottle" width="640" height="480" loading="lazy" decoding="async" /></div>
+  <div class="ingredient-visual"><img class="ingredient-image" src="images/tea-tree-essential-oil.jpg" alt="Tea tree essential oil" width="640" height="480" loading="lazy" decoding="async" /></div>
 </article></div></div></section>
 
     <section id="about" class="py-xl px-gutter bg-surface-container-low border-2">
@@ -342,7 +336,7 @@
           <div class="flex flex-col gap-4">
             <img src="newimg/Artboard%202.png" alt="Lebrostone Multani Mitti Face Pack Soap ingredients" loading="lazy" class="w-full h-64 sm:h-64 object-contain rounded-lg" />
             <div>
-              <h3 class="font-title-sm text-base sm:text-title-sm text-on-surface mb-2">इस साबुन की सामग्री</h3>
+              <h3 class="font-title-sm text-base sm:text-title-sm  mb-2 text-[#173d2d]">इस साबुन की सामग्री</h3>
               <p class="text-sm text-on-surface-variant leading-relaxed">
                 मुल्तानी मिट्टी, बेसन, चावल का आटा, नारियल तेल, अरंडी का तेल, गुलाब का तेल, जैतून का तेल, सी बकथॉर्न तेल, बादाम तेल, नीम तेल, हल्दी, दाल का आटा, कपूर, पेपरमिंट एक्सट्रैक्ट, चंदन का तेल, टी ट्री ऑयल और प्रिज़र्वेटिव।
               </p>
@@ -382,7 +376,7 @@
         <div class="flex flex-col gap-md min-w-0">
 
           <div>
-            <h2 id="productTitle" class="font-headline-md text-headline-md text-on-surface mb-xs">
+            <h2 id="productTitle" class="font-headline-md text-headline-md  mb-xs text-[#173d2d]">
               Lebrostone Multani Mitti Face Pack Soap
             </h2>
             <p class="text-sm font-semibold uppercase tracking-wider text-[#173d2d] mb-3">
