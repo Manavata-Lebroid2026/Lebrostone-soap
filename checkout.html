@@ -31,22 +31,24 @@
   <div class="bg-white rounded-2xl shadow-sm p-4 md:p-6">
 
     <div class="mb-4">
-      <label class="block mb-2 font-semibold">Full Name</label>
+      <label for="fullname" class="block mb-2 font-semibold">Full Name</label>
 
       <input
         type="text"
         id="fullname"
+        autocomplete="name"
         class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500"
         placeholder="Enter your full name"
       />
     </div>
 
     <div class="mb-4">
-      <label class="block mb-2 font-semibold">Phone Number</label>
+      <label for="mobile" class="block mb-2 font-semibold">Phone Number</label>
 
       <input
         type="tel"
         id="mobile"
+        autocomplete="tel"
         inputmode="numeric"
         class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500"
         placeholder="Enter mobile number"
@@ -54,11 +56,12 @@
     </div>
 
     <div>
-      <label class="block mb-2 font-semibold">Address</label>
+      <label for="address" class="block mb-2 font-semibold">Address</label>
 
       <textarea
         rows="5"
         id="address"
+        autocomplete="street-address"
         class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500 resize-none"
         placeholder="Enter full address"></textarea>
     </div>
@@ -83,6 +86,7 @@
 
       <img
         src="newimg/Artboard%205.png"
+        alt="Lebrostone Multani Mitti Face Pack Soap"
         class="w-24 h-24 rounded-xl border object-cover mx-auto sm:mx-0"
       />
 
@@ -182,15 +186,16 @@
 
 const params = new URLSearchParams(window.location.search);
 
-let price = Number(params.get("price")) || 150;
+// This soap has one variant. Use its catalog price, not editable URL prices.
+const price = 150;
 
-let mrp = Number(params.get("mrp")) || 280;
+const mrp = 280;
 
-let qty = Number(params.get("qty")) || 1;
+const requestedQty = Number(params.get("qty"));
+let qty = Number.isInteger(requestedQty) ? Math.min(10, Math.max(1, requestedQty)) : 1;
 
-let size = params.get("size") || "100 gm";
-
-size = size.replaceAll("-", " ");
+const size = "100 gm";
+document.getElementById("adid").value = params.get("adid") || params.get("AdID") || params.get("ad_id") || "";
 
 document.getElementById("productSize").innerText = size;
 
@@ -247,7 +252,7 @@ updateTotal();
 $("#placeOrderBtn").click(function(){
 
   // VALIDATION
-  if($("#fullname").val() == ""){
+  if($("#fullname").val().trim() == ""){
     alert("Please enter full name");
     return;
   }
@@ -259,7 +264,7 @@ $("#placeOrderBtn").click(function(){
     return;
   }
 
-  if($("#address").val() == ""){
+  if($("#address").val().trim() == ""){
     alert("Please enter address");
     return;
   }
@@ -280,11 +285,11 @@ $("#placeOrderBtn").click(function(){
   // API DATA
   var data = {
 
-    FullName: $("#fullname").val(),
+    FullName: $("#fullname").val().trim(),
 
     Mobile: mobile,
 
-    Address: $("#address").val(),
+    Address: $("#address").val().trim(),
 
     AdID: $("#adid").val(),
 
@@ -307,8 +312,6 @@ $("#placeOrderBtn").click(function(){
 
     dataType: "json",
     success: function(response){
-
-      console.log(response);
 
       try {
 

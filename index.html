@@ -218,12 +218,17 @@
     }
     .classic-purchase-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 12px; }
     .classic-purchase-row .quantity-control { flex: 0 0 auto; }
-    .classic-store-buttons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; flex: 1 1 280px; }
+    .classic-variant-row { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
+    .classic-order-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 20px; border-radius: 8px; background: #16a34a; color: #fff; font-weight: 700; text-decoration: none; }
+    .classic-order-button:hover { background: #15803d; }
+    .classic-order-button:focus-visible { outline: 3px solid #b17c2d; outline-offset: 3px; }
+    .classic-store-buttons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; flex: 1 1 280px; min-width: 0; max-width: 100%; }
     .classic-store-button { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 16px; border: 1px solid #d5dbd0; border-radius: 8px; background: #fff; color: #173d2d; text-decoration: none; box-shadow: 0 2px 4px rgba(23,61,45,.04); }
     .classic-store-button img { display: block; width: 80px; max-width: 100%; height: 26px; object-fit: contain; }
     .classic-store-button:hover { background: #f7f8f4; border-color: #8c9d85; }
     .classic-store-button:focus-visible { outline: 3px solid #b17c2d; outline-offset: 3px; }
     @media (max-width: 639px) {
+      .classic-variant-row { gap: 16px; }
       .classic-store-button { padding: 8px 12px; }
     }
     /* The artwork leaves room on the left for desktop copy. */
@@ -657,14 +662,15 @@
             </span>
 
             <!-- VARIATIONS -->
-            <div class="flex flex-wrap gap-base">
+            <div class="classic-variant-row">
               <button type="button" class="variantBtn border-2 border-brand-green bg-secondary-container/10 rounded-xl p-base flex flex-col items-center" aria-pressed="true">
                 <span class="font-bold">100 gm</span>
                 <span class="size-price-row"><span class="text-3xl font-bold text-brand-green">₹150</span><span class="text-sm text-on-surface-variant line-through">₹280</span></span>
               </button>
+              <a id="orderBtn" href="checkout.html?qty=1&amp;size=100+gm" class="classic-order-button">ऑर्डर करें</a>
             </div>
 
-            <!-- QUANTITY + ORDER -->
+            <!-- QUANTITY + MARKETPLACES -->
             <div class="classic-purchase-row">
               <div class="quantity-control flex items-center bg-surface-container rounded-lg border border-outline-variant/30 overflow-hidden">
                 <button id="minusBtn" type="button" class="w-10 h-10 flex items-center justify-center text-xl font-bold hover:bg-gray-100" aria-label="मात्रा कम करें">−</button>
@@ -672,7 +678,7 @@
                 <button id="plusBtn" type="button" class="w-10 h-10 flex items-center justify-center text-xl font-bold hover:bg-gray-100" aria-label="मात्रा बढ़ाएँ">+</button>
               </div>
               <div class="classic-store-buttons">
-                <button id="orderBtn" type="button" class="classic-store-button" aria-label="Amazon पर खरीदें"><img src="public/Amazon_logo.svg" alt="Amazon" width="80" height="26" /></button>
+                <a id="amazonOrderLink" href="https://www.amazon.in/dp/B0H8YP5SZJ" target="_blank" rel="noopener noreferrer" class="classic-store-button" aria-label="Amazon पर खरीदें"><img src="public/Amazon_logo.svg" alt="Amazon" width="80" height="26" /></a>
                 <a id="flipkartOrderLink" href="https://www.flipkart.com/lebrostone-multani-mitti-face-pack-soap-deep-cleanse-tan-removal/p/itmcc57cdb12b612?pid=SOPHPAQFBMMZG2W2&amp;marketplace=FLIPKART" target="_blank" rel="noopener noreferrer" class="classic-store-button" aria-label="Flipkart पर खरीदें"><img src="public/Flipkart%20(1).svg" alt="Flipkart" width="80" height="26" /></a>
                 <a id="meeshoOrderLink" href="https://www.meesho.com/lebrostone-multani-mitti-face-pack-soap-deep-cleanse-tan-removal-100gm/p/gothv1" target="_blank" rel="noopener noreferrer" class="classic-store-button" aria-label="Meesho पर खरीदें"><img src="public/meeshoLogo%20(1)%20(1).svg" alt="Meesho" width="80" height="26" /></a>
               </div>
@@ -735,6 +741,12 @@
         // DISCOUNT TAG UPDATE
         const discountTag = document.getElementById("discountTag");
         if (discountTag) discountTag.innerText = discount + "% OFF";
+
+        const checkoutParams = new URLSearchParams({ qty, size: selectedSize });
+        const landingParams = new URLSearchParams(window.location.search);
+        const adId = landingParams.get("adid") || landingParams.get("AdID") || landingParams.get("ad_id");
+        if (adId) checkoutParams.set("adid", adId);
+        document.getElementById("orderBtn").href = "checkout.html?" + checkoutParams.toString();
 
       }
 
@@ -878,11 +890,6 @@
       }
 
 
-      // ORDER BUTTON
-      document.getElementById("orderBtn")
-        .addEventListener("click", () => {
-          window.open("https://www.amazon.in/dp/B0H8YP5SZJ", "_blank", "noopener,noreferrer");
-        });
       updateTotal();
 
     </script>
