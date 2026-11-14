@@ -615,7 +615,7 @@
         </div>
 
         <!-- PRODUCT DETAILS -->
-        <div class="product-details-panel bg-white text-on-surface flex flex-col gap-md min-w-0 p-4 sm:p-6 rounded-xl border border-outline-variant/30">
+        <div id="productDetails" class="product-details-panel bg-white text-on-surface flex flex-col gap-md min-w-0 p-4 sm:p-6 rounded-xl border border-outline-variant/30">
 
           <div>
             <h2 id="productTitle" class="font-headline-md text-headline-md  mb-xs text-[#173d2d]">
@@ -808,9 +808,10 @@
     <script>
       function scrollToProduct() {
 
-        document.getElementById("productSection")
+        document.getElementById("productDetails")
           .scrollIntoView({
-            behavior: "smooth"
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? "auto" : "smooth",
+            block: "start"
           });
 
       }
@@ -1341,9 +1342,7 @@
 
       <!-- ORDER NOW -->
       <!-- BUTTON -->
-      <button onclick="document.getElementById('productSection').scrollIntoView({
-    behavior: 'smooth'
-  })" class="flex-1 flex items-center justify-center gap-2 bg-green-600 hover:bg-red-600 text-white rounded-full py-3 font-medium active:scale-95 transition-all duration-300">
+      <button onclick="scrollToProduct()" class="flex-1 flex items-center justify-center gap-2 bg-green-600 hover:bg-red-600 text-white rounded-full py-3 font-medium active:scale-95 transition-all duration-300">
 
         <span class="material-symbols-outlined text-[20px]">
           shopping_cart
