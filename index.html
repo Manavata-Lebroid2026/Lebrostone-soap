@@ -807,13 +807,24 @@
     </script>
     <script>
       function scrollToProduct() {
+        const details = document.getElementById("productDetails");
+        const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? "auto" : "smooth";
 
-        document.getElementById("productDetails")
-          .scrollIntoView({
-            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? "auto" : "smooth",
-            block: "start"
-          });
+        if (window.matchMedia('(max-width: 1023px)').matches) {
+          // Leave the image and thumbnails above the details while keeping the
+          // price clear of the fixed mobile order bar.
+          const headerHeight = document.querySelector('header').getBoundingClientRect().height;
+          const orderBarHeight = document.querySelector('.mobile-order-nav').getBoundingClientRect().height;
+          const viewportHeight = window.visualViewport?.height || window.innerHeight;
+          const priceBottom = document.getElementById('productPrice').getBoundingClientRect().bottom;
+          const pricePosition = Math.max(headerHeight + 180, viewportHeight - orderBarHeight - 80);
+          const priceScrollTop = window.scrollY + priceBottom - pricePosition;
+          const detailsScrollTop = window.scrollY + details.getBoundingClientRect().top - headerHeight - 16;
 
+          window.scrollTo({ top: Math.max(0, Math.min(priceScrollTop, detailsScrollTop)), behavior });
+        } else {
+          details.scrollIntoView({ behavior, block: "start" });
+        }
       }
 
     </script>
