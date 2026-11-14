@@ -260,8 +260,7 @@
       #about > div > div:first-child { order: 2; }
       #about > div > div:last-child { order: 1; }
     }
-    #productSection .variantBtn { min-width: 144px; padding: 10px 14px; }
-    .size-price-row { display: flex; align-items: baseline; justify-content: center; gap: 8px; margin-top: 4px; }
+    #productSection .variantBtn { min-width: 144px; min-height: 44px; justify-content: center; padding: 10px 14px; }
   </style>
   <script id="tailwind-config">
     tailwind.config = {
@@ -625,12 +624,12 @@
             <!-- PRICE -->
             <div class="flex items-baseline gap-md mb-md">
 
-              <!-- TOTAL PRICE -->
+              <!-- UNIT PRICE -->
               <span id="productPrice" class="text-3xl font-bold text-brand-green">
                 ₹150
               </span>
 
-              <!-- TOTAL MRP -->
+              <!-- UNIT MRP -->
               <span id="productMrp" class="text-lg text-on-surface-variant line-through">
                 ₹280
               </span>
@@ -650,26 +649,28 @@
           <!-- SIZE -->
           <div class="space-y-base">
 
-            <span class="font-label-caps text-on-surface font-bold">
-              Select Size
-            </span>
-
             <!-- VARIATIONS -->
             <div class="classic-variant-row">
               <button type="button" class="variantBtn border-2 border-brand-green bg-secondary-container/10 rounded-xl p-base flex flex-col items-center" aria-pressed="true">
-                <span class="font-bold">100 gm</span>
-                <span class="size-price-row"><span class="text-3xl font-bold text-brand-green">₹150</span><span class="text-sm text-on-surface-variant line-through">₹280</span></span>
+                <span class="font-bold">100gm</span>
               </button>
-              <a id="orderBtn" href="checkout.html?qty=1&amp;size=100+gm" class="classic-order-button">ऑर्डर करें</a>
             </div>
 
-            <!-- QUANTITY + MARKETPLACES -->
-            <div class="classic-purchase-row">
-              <div class="quantity-control flex items-center bg-surface-container rounded-lg border border-outline-variant/30 overflow-hidden">
-                <button id="minusBtn" type="button" class="w-10 h-10 flex items-center justify-center text-xl font-bold hover:bg-gray-100" aria-label="मात्रा कम करें">−</button>
-                <span id="quantity" class="w-10 text-center font-bold text-lg" aria-live="polite">1</span>
-                <button id="plusBtn" type="button" class="w-10 h-10 flex items-center justify-center text-xl font-bold hover:bg-gray-100" aria-label="मात्रा बढ़ाएँ">+</button>
+            <!-- QUANTITY -->
+            <div class="space-y-2">
+              <span class="block font-label-caps text-on-surface font-bold">Quantity</span>
+              <div class="flex items-center gap-4">
+                <div class="quantity-control inline-flex shrink-0 items-center bg-surface-container rounded-lg border border-outline-variant/30 overflow-hidden">
+                  <button id="minusBtn" type="button" class="w-10 h-10 flex items-center justify-center text-xl font-bold hover:bg-gray-100" aria-label="मात्रा कम करें">−</button>
+                  <span id="quantity" class="w-10 text-center font-bold text-lg" aria-live="polite">1</span>
+                  <button id="plusBtn" type="button" class="w-10 h-10 flex items-center justify-center text-xl font-bold hover:bg-gray-100" aria-label="मात्रा बढ़ाएँ">+</button>
+                </div>
+                <a id="orderBtn" href="checkout.html?qty=1&amp;size=100+gm" class="classic-order-button shrink-0">ऑर्डर करें</a>
               </div>
+            </div>
+
+            <!-- MARKETPLACES -->
+            <div class="classic-purchase-row">
               <div class="classic-store-buttons">
                 <a id="amazonOrderLink" href="https://www.amazon.in/dp/B0H8YP5SZJ" target="_blank" rel="noopener noreferrer" class="classic-store-button" aria-label="Amazon पर खरीदें"><img src="public/Amazon_logo.svg" alt="Amazon" width="80" height="26" /></a>
                 <a id="flipkartOrderLink" href="https://www.flipkart.com/lebrostone-multani-mitti-face-pack-soap-deep-cleanse-tan-removal/p/itmcc57cdb12b612?pid=SOPHPAQFBMMZG2W2&amp;marketplace=FLIPKART" target="_blank" rel="noopener noreferrer" class="classic-store-button" aria-label="Flipkart पर खरीदें"><img src="public/Flipkart%20(1).svg" alt="Flipkart" width="80" height="26" /></a>
@@ -712,23 +713,19 @@
       // TOTAL UPDATE
       function updateTotal() {
 
-        let totalPrice = selectedPrice * qty;
-
-        let totalMrp = selectedMrp * qty;
-
-        // PRICE UPDATE
+        // Keep the product's unit prices independent of quantity.
         document.getElementById("productPrice").innerText =
-          "₹" + totalPrice;
+          "₹" + selectedPrice;
 
         // MRP UPDATE
         document.getElementById("productMrp").innerText =
-          "₹" + totalMrp;
+          "₹" + selectedMrp;
 
         // DISCOUNT CALCULATION
-        let savedAmount = totalMrp - totalPrice;
+        let savedAmount = selectedMrp - selectedPrice;
 
         let discount = Math.round(
-          (savedAmount / totalMrp) * 100
+          (savedAmount / selectedMrp) * 100
         );
 
         // DISCOUNT TAG UPDATE

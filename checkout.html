@@ -204,10 +204,10 @@ function updateTotal(){
   document.getElementById("productQty").innerText = qty;
 
   let total = price * qty;
-  let totalMrp = mrp * qty;
 
-  document.getElementById("productPrice").innerText = "₹" + total;
-  document.getElementById("productMrp").innerText = "₹" + totalMrp;
+  // Show unit prices beside the product; quantity affects only order totals.
+  document.getElementById("productPrice").innerText = "₹" + price;
+  document.getElementById("productMrp").innerText = "₹" + mrp;
   document.getElementById("subtotalPrice").innerText = "₹" + total;
   document.getElementById("totalPrice").innerText = "₹" + total;
 
