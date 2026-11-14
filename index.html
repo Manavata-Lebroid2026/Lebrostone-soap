@@ -55,7 +55,7 @@
     #ingredients .ingredient-visual { width: 100%; max-width: 360px; height: 224px; margin: 0 auto 20px; overflow: hidden; border-radius: 24px; box-shadow: 0 8px 24px rgba(47, 55, 36, .06); }
     #ingredients .ingredient-image { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
     #ingredients .ingredient-card h3 { color: #284c3d; font-size: 23px; font-weight: 600; line-height: 1.4; margin-bottom: 10px; }
-    .ingredient-content p { font-size: 16px; color: #6e685a; line-height: 1.6; }
+    .ingredient-content p { font-size: 16px; }
     .ingredient-content { margin-top: 0; }
     .ingredient-content p { text-align: left; line-height: 1.8; color: #6e685a; }
     .ingredient-controls { display: flex; justify-content: center; align-items: center; gap: 22px; margin-top: 16px; }
@@ -119,27 +119,7 @@
       .benefits-group { width: 100%; flex-wrap: wrap; gap: 12px; }
       .benefits-group[aria-hidden="true"] { display: none; }
     }
-    .footer-green-panel {
-      background: #173d2d;
-      color: #f5efdc;
-    }
-    .footer-green-panel h2,
-    .footer-green-panel h3,
-    .footer-green-panel p,
-    .footer-green-panel .text-on-surface,
-    .footer-green-panel .text-on-surface-variant { color: #f5efdc; }
-    .footer-green-panel a,
-    .footer-green-panel .text-brand-green,
-    .footer-green-panel .text-green-600 { color: #d3c58e; }
-    .footer-green-panel a:hover { color: #fff; }
-    .footer-green-panel .variantBtn {
-      background: #214d3a;
-      border-color: #c8b879;
-    }
-    .footer-green-panel .quantity-control { color: #173d2d; }
     /* Responsive layouts and space for the fixed mobile order bar. */
-    .purchase-actions .quantity-control { flex: 0 0 auto; }
-    .purchase-actions #orderBtn, .purchase-actions #flipkartOrderLink { min-height: 44px; flex: 1 1 150px; }
     .quantity-control :is(button, #quantity) { min-width: 40px; min-height: 44px; }
     .quantity-control #quantity { display: flex; align-items: center; justify-content: center; }
     .ingredient-select { font-size: 16px; }
@@ -149,19 +129,11 @@
       body { padding-bottom: calc(82px + env(safe-area-inset-bottom, 0px)); }
       header img { max-width: 45vw; object-fit: contain; }
       header button { min-height: 44px; }
-      .hero-section { min-height: 0; flex-direction: column; gap: 16px; padding: 16px; }
-      .hero-section .hero-art { position: relative; inset: auto; width: 100%; height: clamp(240px, 65vw, 380px); }
-      .hero-section .hero-art img { position: static; width: 100%; height: 100%; opacity: 1; object-fit: contain; object-position: center; }
-      .hero-section .hero-copy { width: 100%; max-width: none; margin: 0; padding: 24px; }
-      .hero-copy h1 { font-size: clamp(24px, 5.5vw, 30px); line-height: 1.4; }
-      .hero-copy > p { font-size: 16px; }
       main > section.py-xl { padding: 40px 16px; }
       #about > div { padding-left: 0; padding-right: 0; gap: 24px; }
       #productSection > div { gap: 28px; }
       #productTitle { font-size: clamp(24px, 6vw, 30px); line-height: 1.3; overflow-wrap: anywhere; }
-      #productSection .product-details-panel { gap: 20px; }
       #productSection .product-details-panel .flex.items-center.gap-sm { flex-wrap: wrap; }
-      .footer-green-panel .purchase-actions { gap: 12px; }
       .mobile-order-nav { padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
       .mobile-order-nav button { min-width: 0; min-height: 48px; padding-left: 8px; padding-right: 8px; gap: 6px; }
       .mobile-order-nav button span { font-size: 13px; }
@@ -217,7 +189,6 @@
       #benefits .benefit-grid p { font-size: 14px; }
     }
     .classic-purchase-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 12px; }
-    .classic-purchase-row .quantity-control { flex: 0 0 auto; }
     .classic-variant-row { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
     .classic-order-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 20px; border-radius: 8px; background: #16a34a; color: #fff; font-weight: 700; text-decoration: none; }
     .classic-order-button:hover { background: #15803d; }
@@ -686,14 +657,6 @@
                 ₹280
               </span>
 
-              <!-- DISCOUNT -->
-              <!-- <span
-              id="discountTag"
-              class="bg-secondary-container text-on-secondary-container px-base py-0.5 rounded-full text-xs font-bold uppercase tracking-wider"
-            >
-              43% OFF
-            </span> -->
-
             </div>
 
           </div>
@@ -730,18 +693,6 @@
               </div>
             </div>
           </div>
-          <!-- AMAZON PURCHASE BUTTON (temporarily hidden) -->
-          <!--
-          <div class="mb-6" aria-label="Shop Lebrostone soap">
-            <a href="https://www.amazon.in/dp/B0H8YP5SZJ" target="_blank" rel="noopener noreferrer" aria-label="Buy Lebrostone Multani Mitti Face Pack Soap on Amazon" class="inline-flex items-center gap-3 rounded-lg bg-[#111827] px-4 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-black active:scale-95">
-              <span class="rounded bg-white px-2 py-1">
-                <img src="public/Amazon_logo.svg" alt="Amazon" class="w-14">
-              </span>
-              <span>Amazon पर खरीदें</span>
-            </a>
-            <p class="mt-2 text-xs text-on-surface-variant">इन बटनों से आप Amazon या Flipkart की product listing पर जाएँगे।</p>
-          </div>
-          -->
 
         </div>
 
@@ -753,11 +704,11 @@
 
       let qty = 1;
 
-      let selectedSize = "100 gm";
+      const selectedSize = "100 gm";
 
-      let selectedPrice = 150;
+      const selectedPrice = 150;
 
-      let selectedMrp = 280;
+      const selectedMrp = 280;
 
       const quantityText =
         document.getElementById("quantity");
@@ -772,17 +723,6 @@
         // MRP UPDATE
         document.getElementById("productMrp").innerText =
           "₹" + selectedMrp;
-
-        // DISCOUNT CALCULATION
-        let savedAmount = selectedMrp - selectedPrice;
-
-        let discount = Math.round(
-          (savedAmount / selectedMrp) * 100
-        );
-
-        // DISCOUNT TAG UPDATE
-        const discountTag = document.getElementById("discountTag");
-        if (discountTag) discountTag.innerText = discount + "% OFF";
 
         const checkoutParams = new URLSearchParams({ qty, size: selectedSize });
         const landingParams = new URLSearchParams(window.location.search);
@@ -861,76 +801,6 @@
         );
 
       }
-
-      // VARIANT SELECT
-      function selectVariant(
-        price,
-        mrp,
-        size,
-        mainImage,
-        galleryImages,
-        btn
-      ) {
-
-        selectedPrice = price;
-
-        selectedMrp = mrp;
-
-        selectedSize = size;
-
-        // MAIN IMAGE CHANGE
-        document.getElementById("mainProductImage").src =
-          mainImage;
-
-        const thumbs =
-          document.querySelectorAll(".thumbBtn img");
-
-        thumbs.forEach((thumb, index) => {
-
-          if (galleryImages[index]) {
-
-            thumb.src = galleryImages[index];
-
-            thumb.parentElement.setAttribute(
-              "onclick",
-              `changeImage('${galleryImages[index]}',this)`
-            );
-
-          }
-
-        });
-
-        // ACTIVE VARIANT
-        document.querySelectorAll(".variantBtn").forEach(button => {
-
-          button.classList.remove(
-            "border-brand-green",
-            "bg-secondary-container/10",
-            "border-2"
-          );
-
-          button.classList.add(
-            "border",
-            "border-outline-variant/30"
-          );
-
-        });
-
-        btn.classList.remove(
-          "border",
-          "border-outline-variant/30"
-        );
-
-        btn.classList.add(
-          "border-2",
-          "border-brand-green",
-          "bg-secondary-container/10"
-        );
-
-        updateTotal();
-
-      }
-
 
       updateTotal();
 
@@ -1385,7 +1255,6 @@
         <button onclick="closePopup(this)" class="text-red-500 font-bold text-lg hover:text-red-700">✕</button>
       </div>
 
-      <!-- POPUP 21 to 40 same pattern -->
 
     </div>
 
