@@ -586,7 +586,7 @@
           </p>
         </div>
         <div class="overflow-hidden rounded-xl border-2 border-[#173d2d] bg-white shadow-sm">
-          <img src="newimg/Artboard%202.png" alt="Lebrostone साबुन की सामग्री: मुल्तानी मिट्टी, बेसन, चावल का आटा और तेल" loading="lazy" decoding="async" class="block w-full h-auto" />
+          <img src="newimg/Artboard%202.png" alt="Lebrostone साबुन की सामग्री: मुल्तानी मिट्टी, बेसन, चावल का आटा और तेल" width="1080" height="1080" loading="lazy" decoding="async" class="block w-full h-auto" />
         </div>
       </div>
     </section>
@@ -806,24 +806,41 @@
 
     </script>
     <script>
-      function scrollToProduct() {
+      let productScrollRequest = 0;
+
+      async function scrollToProduct() {
+        const request = ++productScrollRequest;
         const details = document.getElementById("productDetails");
-        const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? "auto" : "smooth";
+        const image = document.getElementById('mainProductImage');
 
-        if (window.matchMedia('(max-width: 1023px)').matches) {
-          // Leave the image and thumbnails above the details while keeping the
-          // price clear of the fixed mobile order bar.
-          const headerHeight = document.querySelector('header').getBoundingClientRect().height;
-          const orderBarHeight = document.querySelector('.mobile-order-nav').getBoundingClientRect().height;
-          const viewportHeight = window.visualViewport?.height || window.innerHeight;
-          const priceBottom = document.getElementById('productPrice').getBoundingClientRect().bottom;
-          const pricePosition = Math.max(headerHeight + 180, viewportHeight - orderBarHeight - 80);
-          const priceScrollTop = window.scrollY + priceBottom - pricePosition;
-          const detailsScrollTop = window.scrollY + details.getBoundingClientRect().top - headerHeight - 16;
+        // Font loading changes the height of the sections above this product.
+        await Promise.all([document.fonts?.ready, image.decode().catch(() => {})]);
 
-          window.scrollTo({ top: Math.max(0, Math.min(priceScrollTop, detailsScrollTop)), behavior });
-        } else {
-          details.scrollIntoView({ behavior, block: "start" });
+        // Use an immediate scroll and remeasure after layout/viewport updates.
+        // Repeated clicks cancel older requests rather than competing animations.
+        for (let frame = 0; frame < 3; frame++) {
+          await new Promise(resolve => requestAnimationFrame(resolve));
+          if (request !== productScrollRequest) return;
+
+          const headerBottom = document.querySelector('header').getBoundingClientRect().bottom;
+          let top = window.scrollY + details.getBoundingClientRect().top - headerBottom - 16;
+
+          if (window.matchMedia('(max-width: 1023px)').matches) {
+            const imageRect = image.getBoundingClientRect();
+            const priceBottom = document.getElementById('productPrice').getBoundingClientRect().bottom;
+            const viewport = window.visualViewport;
+            const viewportBottom = (viewport?.offsetTop || 0) + (viewport?.height || window.innerHeight);
+            const orderBar = document.querySelector('.mobile-order-nav').getBoundingClientRect();
+            const visibleBottom = orderBar.height ? Math.min(viewportBottom, orderBar.top) : viewportBottom;
+            const imageMiddleTop = window.scrollY + imageRect.top + imageRect.height / 2 - headerBottom - 12;
+            const priceVisibleTop = window.scrollY + priceBottom - visibleBottom + 32;
+
+            // Start halfway through the image, scrolling further only when a
+            // smaller screen needs extra room to show the price above the bar.
+            top = Math.min(top, Math.max(imageMiddleTop, priceVisibleTop));
+          }
+
+          window.scrollTo({ top: Math.max(0, top), behavior: "instant" });
         }
       }
 
