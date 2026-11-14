@@ -20,7 +20,7 @@
   .checkout-layout > div, .checkout-product-copy { min-width: 0; }
   .checkout-product-copy h3 { overflow-wrap: anywhere; line-height: 1.5; }
   input:not([type="hidden"]):not([type="radio"]), textarea { min-height: 48px; font-size: 16px; }
-  textarea { resize: vertical; }
+  #address { display: block; resize: vertical; }
   #minusBtn, #plusBtn { min-width: 44px; min-height: 44px; }
   #placeOrderBtn { width: 100%; max-width: 320px; min-height: 48px; }
   #productPrice, #productMrp, #subtotalPrice, #totalPrice { white-space: nowrap; }
@@ -28,15 +28,20 @@
   @media (max-width: 639px) {
     .checkout-layout { max-width: 540px; }
     .checkout-layout > div { padding: 20px 16px; }
+    .checkout-layout .checkout-contact-card { padding: 16px; }
+    .checkout-contact-card > .mb-4 { margin-bottom: 12px; }
+    .checkout-contact-card label { margin-bottom: 4px; }
+    .checkout-contact-card input:not([type="hidden"]), #address { padding: 10px 12px; }
+    #address { height: 80px; min-height: 80px; }
   }
 </style>
 
 </head>
 
-<body class="bg-[#f3f4f6] min-h-screen py-6 md:py-10 px-3 md:px-6">
+<body class="bg-[#f3f4f6] min-h-screen py-4 md:py-10 px-3 md:px-6">
 
 <!-- HEADING -->
-<h1 class="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-10">
+<h1 class="text-2xl md:text-4xl font-bold text-center mb-4 md:mb-10">
   Checkout
 </h1>
 
@@ -44,7 +49,7 @@
 <div class="checkout-layout max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-8 items-start">
 
   <!-- LEFT SIDE -->
-  <div class="bg-white rounded-2xl shadow-sm p-4 md:p-6">
+  <div class="checkout-contact-card bg-white rounded-2xl shadow-sm p-4 md:p-6">
 
     <div class="mb-4">
       <label for="fullname" class="block mb-2 font-semibold">Full Name</label>
@@ -75,10 +80,10 @@
       <label for="address" class="block mb-2 font-semibold">Address</label>
 
       <textarea
-        rows="5"
+        rows="3"
         id="address"
         autocomplete="street-address"
-        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500 resize-none"
+        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500"
         placeholder="Enter full address"></textarea>
     </div>
 
