@@ -14,6 +14,22 @@
 
 <!-- JQUERY -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+  html { -webkit-text-size-adjust: 100%; }
+  *, *::before, *::after { box-sizing: border-box; }
+  .checkout-layout > div, .checkout-product-copy { min-width: 0; }
+  .checkout-product-copy h3 { overflow-wrap: anywhere; line-height: 1.5; }
+  input:not([type="hidden"]):not([type="radio"]), textarea { min-height: 48px; font-size: 16px; }
+  textarea { resize: vertical; }
+  #minusBtn, #plusBtn { min-width: 44px; min-height: 44px; }
+  #placeOrderBtn { width: 100%; max-width: 320px; min-height: 48px; }
+  #productPrice, #productMrp, #subtotalPrice, #totalPrice { white-space: nowrap; }
+  button:focus-visible { outline: 3px solid #15803d; outline-offset: 3px; }
+  @media (max-width: 639px) {
+    .checkout-layout { max-width: 540px; }
+    .checkout-layout > div { padding: 20px 16px; }
+  }
+</style>
 
 </head>
 
@@ -25,7 +41,7 @@
 </h1>
 
 <!-- MAIN WRAPPER -->
-<div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-8">
+<div class="checkout-layout max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-8 items-start">
 
   <!-- LEFT SIDE -->
   <div class="bg-white rounded-2xl shadow-sm p-4 md:p-6">
@@ -87,10 +103,10 @@
       <img
         src="newimg/Artboard%205.png"
         alt="Lebrostone Multani Mitti Face Pack Soap"
-        class="w-24 h-24 rounded-xl border object-cover mx-auto sm:mx-0"
+        class="w-24 h-24 shrink-0 rounded-xl border object-contain mx-auto sm:mx-0"
       />
 
-      <div class="flex-1 text-center sm:text-left">
+      <div class="checkout-product-copy flex-1 text-center sm:text-left">
 
         <h3 class="font-bold text-lg">Lebrostone Multani Mitti Face Pack Soap</h3>
 
@@ -115,14 +131,14 @@
         <!-- QTY -->
         <div class="flex justify-center sm:justify-start items-center gap-3">
 
-          <button id="minusBtn"
+          <button id="minusBtn" type="button" aria-label="Decrease quantity"
             class="w-8 h-8 rounded bg-gray-200 hover:bg-gray-300">
             -
           </button>
 
-          <span id="productQty" class="font-bold text-lg">1</span>
+          <span id="productQty" class="font-bold text-lg" aria-live="polite">1</span>
 
-          <button id="plusBtn"
+          <button id="plusBtn" type="button" aria-label="Increase quantity"
             class="w-8 h-8 rounded bg-gray-200 hover:bg-gray-300">
             +
           </button>

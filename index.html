@@ -272,6 +272,47 @@
       .product-purchase-options .classic-store-button { min-width: 0; padding: 8px 6px; }
       .product-quantity-row .classic-order-button { padding: 8px 16px; }
     }
+    /* Keep content fluid while letting each section control its own columns. */
+    html { scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
+    *, *::before, *::after { box-sizing: border-box; }
+    img { max-width: 100%; }
+    main > section > div, footer .grid > div { min-width: 0; }
+    .site-header-inner { min-height: 72px; gap: 16px; }
+    .site-header-spacer { padding-top: 72px; }
+    header button, .hero-copy button { min-height: 44px; }
+    #productSection > div { gap: clamp(28px, 4vw, 56px); }
+    #productTitle { font-size: clamp(26px, 2.5vw, 36px); line-height: 1.35; overflow-wrap: anywhere; }
+    #about h2 { line-height: 1.4; }
+    details summary { min-height: 48px; gap: 16px; line-height: 1.6; overflow-wrap: anywhere; }
+    details summary .material-symbols-outlined { flex: 0 0 24px; }
+    details p { line-height: 1.75; }
+    footer nav a { display: inline-flex; align-items: center; min-height: 44px; }
+    :is(button, a, summary):focus-visible { outline: 3px solid #b17c2d; outline-offset: 3px; }
+    @media (min-width: 768px) and (max-width: 1023px) {
+      main > section.py-xl { padding: 56px 24px; }
+      #productSection > div { max-width: 720px; }
+      #about > div { max-width: 720px; gap: 32px; }
+      #about > div > div:first-child { order: 2; }
+      #about > div > div:last-child { order: 1; }
+    }
+    @media (max-width: 767px) {
+      #productSection .product-details-panel { padding: 20px 16px; }
+      .product-quantity-row { gap: 16px; }
+      .hero-section .hero-copy { padding: 24px 20px; }
+      .hero-copy > .flex { gap: 12px; }
+      .mobile-order-nav > div { gap: 8px; }
+      .mobile-order-nav button { line-height: 1.4; }
+      details summary, details p { font-size: 16px; }
+    }
+    @media (max-width: 359px) {
+      .product-quantity-row { gap: 10px; }
+      .product-quantity-row .classic-order-button { padding-inline: 12px; }
+      .care-steps > div { padding: 20px 12px; }
+      .mobile-order-nav button span { font-size: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html.scroll-smooth { scroll-behavior: auto; }
+    }
   </style>
   <script id="tailwind-config">
     tailwind.config = {
@@ -371,7 +412,7 @@
   <!-- header -->
   <header class="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
 
-    <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 sm:py-2">
+    <div class="site-header-inner max-w-7xl mx-auto flex items-center justify-between px-4 py-2">
 
       <!-- LOGO -->
       <div class="flex items-center">
@@ -393,7 +434,7 @@
 
   </header>
   <!-- header close -->
-  <div class="pt-16"><div class="py-3 px-4 text-center text-sm sm:text-base bg-[#173d2d] text-[#f5efdc] border-b border-[#c8b879]/40">पुराने नुस्खों का एहसास, आज की Skin Care के साथ।</div></div>
+  <div class="site-header-spacer"><div class="py-3 px-4 text-center text-sm sm:text-base bg-[#173d2d] text-[#f5efdc] border-b border-[#c8b879]/40">पुराने नुस्खों का एहसास, आज की Skin Care के साथ।</div></div>
 
 
   <!-- hero start -->
@@ -552,7 +593,7 @@
 </script>
 
     <section id="about" class="py-xl px-gutter bg-surface-container-low border-2">
-      <div class="max-w-6xl mx-auto px-4 sm:px-0 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-lg items-center">
+      <div class="max-w-6xl mx-auto px-4 sm:px-0 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-lg items-center">
         <div>
           <h2 class="font-headline-md text-xl sm:text-2xl md:text-headline-md text-on-surface mb-4 md:mb-md">
             मिट्टी की वो पुरानी यादें, अब चेहरे की देखभाल के नाम!
@@ -585,7 +626,7 @@
     <!-- Product Selection Section -->
     <section id="productSection" class="py-xl px-gutter bg-surface border-2">
 
-      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-xl items-start">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-xl items-start">
 
         <!-- PRODUCT GALLERY -->
         <div class="flex flex-col gap-md min-w-0">
